@@ -1,0 +1,50 @@
+<%- include('../partials/head.ejs'); %>
+    <section class="Login overflow-hidden">
+            <div class="row g-0 justify-content-center align-items-center h-100">
+                <div class="col-lg-6 col-md-12 h-100 text-white">
+                    <div class="img-box h-100 rounded-start-0 bg-primary banner-img" style="background-image: url('../../images/temp/login/login-banner.png');">
+                        <div class="px-xl-5 px-4 pt-md-6 pt-4 pb-lg-0 pb-md-6 py-5">
+                            <h1 class="fw-bold mt-lg-6 mt-5 display-4 text-warning"><span class="fs-3 ff-base fw-normal text-white d-block mb-2">Welcome To</span>Draper &<br class="d-xl-block d-none"> Kramer</span> <br class="d-md-block d-none"><span class="text-primary">Mortgage <br class="d-xl-block d-none"> Corp</h1>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-lg-6 col-md-8 h-100">
+                 <div class="overflow-auto d-flex align-items-center justify-content-center h-100">
+                        <div class="w-100 p-xl-5 p-4 login-form">
+                            <h1 class="text-center h2 fw-semibold mb-lg-5 mb-4 mt-lg-0 mt-sm-5 mt-4">Sign into your account</h1>
+                            <% if (message.length> 0) { %>
+                            <div class="alert alert-danger">
+                                <%= message %>
+                            </div>
+                            <% } %>
+                            <form class="form-login" id="frm" method="post" action="">
+                                <div class="mb-3 mb-lg-4 pb-2">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control form-control-lg required" id="email" value="" placeholder="Your email address" autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" name="password" placeholder="The password you picked" class="form-control form-control-lg required" id="password" value="" />
+                                </div>
+                                <div class="text-center mt-xl-5 mt-4 mb-lg-4 mb-3 pb-2">
+                                    <input type="hidden" name="loginsubmit" value="login" />
+                                    <button class="btn btn-primary btn-lg btn-md" onclick="javascript:return submitlogin();"> SIGN IN</button>
+                                </div>
+                                <p class="text-center small">By signing in you agree to our <a href="#" class="ff-primary fw-medium">Terms and Conditions</a></p>
+                            </form>
+                        </div>
+                 </div>
+                </div>
+            </div>
+    </section>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#frm").validate();
+    });
+
+    function submitlogin() {
+        jQuery("#frm").submit();
+    }
+    </script>
+    <%- include('../partials/footer.ejs');%>

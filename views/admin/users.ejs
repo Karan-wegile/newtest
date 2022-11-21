@@ -1,0 +1,457 @@
+<%- include('../partials/head');%>
+
+  <body>
+    <div class="wrapper">
+    <!-- Header start -->
+    <%- include('../partials/header.ejs'); %>
+    <!-- Header end -->
+      <!-- Sidebar start -->
+      <%- include('../partials/leftbar');%>
+        <!-- Sidebar end -->
+        <div class="content-wrapper">
+            <!-- main content start -->
+            <% if (errors.length> 0) { %> <div style="display: none;" id="error">
+                <%= errors %>
+              </div>
+              <% } %>
+                <% if (success.length> 0) { %> <div style="display: none;" id="success">
+                    <%= success %>
+                  </div>
+                  <% } %>
+
+                    <!-- main content start -->
+                    <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                      <h5 class="text-dark mb-3">Agents</h5>
+                        <div class="px-3 rounded-5 border-0 bg-light-secondary shadow py-4 mb-3 mb-lg-4">
+                          <div class="row gx-2">
+                            <div class="col-xxl-7 col-xl-8">
+                              <ul class="nav nav-pills nav-pills-head align-items-center flex-nowrap scroll-hide overflow-auto mb-1 mb-md-3 mb-xl-0" id="pills-tab"
+                                role="tablist">
+                                <li class=" nav-item me-2 mb-md-0 mb-1 d-flex align-items-center" role="presentation">
+                                  <input class="form-check-input border-blue form-custom-check mt-0 checkUnchecked"
+                                    type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                                  <span class="cursor-pe ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    data-bs-title="Select All"> </span>
+                                </li>
+                                <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1" id="activated_id" role="presentation"
+                                  data-bs-toggle="modal" data-bs-target="#assignedModalAlert">
+                                  <span
+                                    class="topButtonIcon d-flex align-items-center justify-content-center sm-wh rounded-circle bg-light-hover cursor-pe"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" onclick=" myFunction();"
+                                    data-bs-title="Activate" data-cust="">
+                                    <svg id="Group_10" data-name="Group 10" xmlns="http://www.w3.org/2000/svg"
+                                      width="18" height="20" viewBox="0 0 24 23">
+                                      <g id="Rectangle" fill="none" stroke="#043072" stroke-miterlimit="10"
+                                        stroke-width="1.92">
+                                        <rect width="24" height="23" rx="4.8" stroke="none" />
+                                        <rect x="0.96" y="0.96" width="22.08" height="21.08" rx="3.84" fill="none" />
+                                      </g>
+                                      <rect id="Rectangle-2" data-name="Rectangle" width="1.92" height="12.458"
+                                        transform="translate(11.52 5.75)" fill="#043072" />
+                                    </svg>
+                                  </span>
+                                </li>
+                                <li class=" nav-item me-1 me-xl-2 mb-md-0 mb-1" id="archived_id" role="presentation"
+                                  data-bs-toggle="modal" data-bs-target="#assignedModalAlert">
+                                  <span
+                                    class=" topButtonIcon d-flex align-items-center justify-content-center sm-wh rounded-circle bg-light-hover cursor-pe"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" onclick=" myFunction1();"
+                                    data-bs-title="Archive" data-cust=""> <svg xmlns="http://www.w3.org/2000/svg"
+                                      width="20.546" height="18.545" viewBox="0 0 24.546 22.545">
+                                      <g id="noun-archive-1807439" transform="translate(0.273 0.273)">
+                                        <path id="Combined_Shape" data-name="Combined Shape"
+                                          d="M2.769,22a2.8,2.8,0,0,1-1.958-.806A2.722,2.722,0,0,1,0,19.25V5.5a.906.906,0,0,1,.273-.646L4.348.806A2.76,2.76,0,0,1,6.3,0h11.39a2.764,2.764,0,0,1,1.958.806l4.075,4.047A.91.91,0,0,1,24,5.5V19.25A2.759,2.759,0,0,1,21.231,22Zm-.923-2.75a.906.906,0,0,0,.271.648.933.933,0,0,0,.652.268H21.231a.933.933,0,0,0,.653-.268.909.909,0,0,0,.27-.648V7.333H1.846ZM21.771,5.5l-3.42-3.4a.921.921,0,0,0-.655-.271H6.3a.92.92,0,0,0-.651.271L2.229,5.5ZM11.858,18.306a.914.914,0,0,1-.162-.05l-.148-.078a1.474,1.474,0,0,1-.134-.114l-2.769-2.75a.915.915,0,0,1,.439-1.475.931.931,0,0,1,.863.184l1.13,1.182V10.084a.914.914,0,0,1,.462-.794.927.927,0,0,1,.922,0,.914.914,0,0,1,.462.794V15.2l1.2-1.182a.924.924,0,0,1,1.485.436.908.908,0,0,1-.184.856l-2.768,2.75a1.607,1.607,0,0,1-.134.114l-.148.078a.914.914,0,0,1-.162.05.85.85,0,0,1-.35,0Z"
+                                          fill="#043072" stroke="#043072" stroke-miterlimit="10" stroke-width="0.545" />
+                                      </g>
+                                    </svg>
+                                  </span>
+                                </li>
+                                <li class=" nav-item me-1 me-xl-2 mb-md-0 mb-1" role="presentation"
+                                  data-bs-toggle="modal" data-bs-target="#assignedModalAlert" data-cust="">
+                                  <span
+                                    class="topButtonIcon  d-flex align-items-center justify-content-center sm-wh rounded-circle bg-light-hover cursor-pe"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Delete"
+                                    onclick="myFun2();">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18.999"
+                                      viewBox="0 0 22 22.999">
+                                      <path id="Combined_Shape" data-name="Combined Shape"
+                                        d="M16.664,23H5.428a3.117,3.117,0,0,1-2.008-.681A2.865,2.865,0,0,1,2.387,20.1V5.24H1.066a1.049,1.049,0,1,1,0-2.1H1.1c.8-.021,1.614,0,2.417,0h2.71v-.31c0-.163-.005-.33,0-.493A2.39,2.39,0,0,1,6.848.762C7.6-.082,8.675,0,9.692,0h3.036c.256,0,.511-.005.767,0a2.411,2.411,0,0,1,2.2,1.446,3.891,3.891,0,0,1,.186,1.583v.111h5.053A1.077,1.077,0,0,1,22,4.191,1.067,1.067,0,0,1,20.934,5.24H20.9c-.432.011-.866.01-1.3.007V19.566c0,.189.005.382,0,.572A2.925,2.925,0,0,1,16.752,23L16.7,23h-.032ZM5.284,20.919l-.029,0A.084.084,0,0,0,5.284,20.919ZM5.22,20.9H5.3c1.933.031,3.866,0,5.8,0h5.6c.038,0,.072,0,.1,0,.059-.015.118-.032.178-.046l.009,0,.055-.028c.009-.006.066-.037.113-.065l.01-.008c.037-.031.069-.063.1-.094s.044-.047.067-.072c.027-.044.053-.091.056-.1.013-.022.026-.047.039-.072.016-.058.033-.135.042-.174,0-.008,0-.016,0-.026V5.287H4.527c.013,1.443-.015,2.89-.015,4.33V20.143a.386.386,0,0,0,.012.087L4.5,20.165c.012.036.013.087.022.124,0,.009.02.071.036.124l.008.013c.026.047.058.094.085.147l.022.041c.044.045.107.1.15.14l.057.033c.036.023.072.041.1.059a1.4,1.4,0,0,1,.162.046.212.212,0,0,1,.045.008Zm11.956-.157c.025-.016.044-.029.042-.032Zm.1-.085s.023-.024.044-.058C17.305,20.623,17.291,20.642,17.276,20.662ZM4.683,20.634Zm-.059-.083c0,.006.017.031.047.061L4.662,20.6c-.015-.024-.032-.049-.037-.049ZM17.4,20.489c.005,0,.014-.022.024-.056C17.414,20.451,17.406,20.47,17.4,20.489Zm-12.813,0c.006,0-.01-.036-.026-.068A.236.236,0,0,0,4.586,20.489Zm-.052-.118-.006-.011Zm14-15.083ZM8.468,3.143H13.75v-.8c0-.01,0-.018,0-.025l0-.009,0,0a.187.187,0,0,1,0-.024.168.168,0,0,0-.012-.022.093.093,0,0,0,0,.011l0-.012,0-.013c-.007-.011-.016-.03-.025-.048L13.7,2.2c-.018-.016-.063-.044-.087-.061l-.024-.012-.024-.006.008,0-.007,0h-.031L13.516,2.1c-.073-.021-.07-.008-.041,0l.008,0c-.052,0-.108,0-.164,0H8.583l-.015,0-.054.015.018-.008.012-.007h0c-.027,0-.04.008.007,0,.029-.017.029-.026-.068.026h0l-.013,0,0,0h0l0,0a.6.6,0,0,1-.074.071l-.026.044,0,.008,0,.013a.456.456,0,0,0-.007.061v.8Zm5.264-.9-.008-.023-.013-.016A.384.384,0,0,0,13.733,2.247ZM8.4,2.2l.024-.025.016-.015-.008,0c.006-.008.008-.013,0-.015s-.01.009-.02.025a.086.086,0,0,0-.023.017s.007,0,.014,0Zm.055-.055h0ZM4.524,20.23a.323.323,0,0,1,.017.053A.272.272,0,0,1,4.524,20.23Zm7.763-3.121V9.077a1.065,1.065,0,0,1,2.129,0v8.031a1.077,1.077,0,0,1-1.065,1.049H13.31A1.07,1.07,0,0,1,12.287,17.108Zm-4.708,0V9.077a1.065,1.065,0,0,1,2.129,0v8.031a1.077,1.077,0,0,1-1.065,1.049H8.6A1.07,1.07,0,0,1,7.579,17.108ZM13.742,2.279l.007.032A.052.052,0,0,1,13.742,2.279ZM8.416,2.172l.016-.01-.008.01-.016.013Zm.065-.035h0l.031-.008a.181.181,0,0,1-.047.014Zm5-.025h.022l.033,0,.03.009a.081.081,0,0,1-.024,0A.187.187,0,0,1,13.483,2.111Z"
+                                        transform="translate(0 0)" fill="#043072" />
+                                    </svg>
+                                  </span>
+                                </li>
+                                <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                                  <button class=" tab-btnContact nav-link btn-xs "
+                                    id="pills-invited-tab" data-bs-toggle="pill" data-bs-target="#pills-invited"
+                                    type="button" role="tab" aria-controls="pills-invited" aria-selected="true"
+                                    data-tabAct="invited"> Invited </button>
+                                </li>
+                                <li class="nav-item me-2 mb-md-0 mb-1 roactive" role="presentation">
+                                  <button class=" roactivebutton tab-btnContact nav-link btn-xs "
+                                    id="pills-active-tab" data-bs-toggle="pill" data-bs-target="#pills-active"
+                                    type="button" role="tab" aria-controls="pills-active" aria-selected="false"
+                                    data-tabAct="active"> Active </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class=" tab-btnContact nav-link btn-xs "
+                                    id="pills-archived-tab" data-bs-toggle="pill" data-bs-target="#pills-archived"
+                                    type="button" role="tab" aria-controls="pills-archived" aria-selected="false"
+                                    data-tabAct="archived"> Archived </button>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="col-xxl-5 col-xl-4 text-xl-end">
+                              <ul class="mb-0 list-inline">
+                                <li class="list-inline-item">
+                                  <a role="button" href="add-bulk" class="btn btn-outline-primary btn-small">Add Bulk</a>
+                                </li>
+                                <li class="list-inline-item">
+                                  <a role="button" href="edit-user" class="btn btn-primary btn-small">Add New</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div >
+                          <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade" id="pills-invited" role="tabpanel"
+                              aria-labelledby="pills-invited-tab" tabindex="0">
+                              <div class="dataTable--custom" >
+                                <table id="agentInvited" class="table w-100">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>ID</th>
+                                      <th>Full Name</th>
+                                      <th>Phone Number</th>
+                                      <th>Email</th>
+                                      <th>State</th>
+                                      <th>Licence No</th>
+                                      <th>Licence Expire</th>
+                                    </tr>
+                                  </thead>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-active" role="tabpanel"
+                              aria-labelledby="pills-active-tab" tabindex="0">
+                              <div class="dataTable--custom" >
+                                <table id="agentActive" class="table w-100">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>ID</th>
+                                      <th>Full Name</th>
+                                      <th>Phone Number</th>
+                                      <th>Email</th>
+                                      <th>State</th>
+                                      <th>Licence No</th>
+                                      <th>Licence Expire</th>
+                                      <th></th>
+                                      <th></th>
+                                    </tr>
+                                  </thead>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-archived" role="tabpanel"
+                              aria-labelledby="pills-archived-tab" tabindex="0">
+                              <div class="dataTable--custom">
+                                <table id="agentArchived" class="table w-100">
+                                  <thead>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>State</th>
+                                    <th>Licence No</th>
+                                    <th>Licence Expire</th>
+                                    <th></th>
+                                    <th></th>
+                                    </tr>
+                                  </thead>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </main>
+                 
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs'); %>
+      <script type="text/javascript">
+        function confirmDelete() {
+          if (!confirm("Are you sure you want to delete this user")) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+
+
+
+        function addNewUser() {
+          location.href = "edit-user";
+          return false;
+        }
+        if (document.querySelectorAll('.checkUnchecked').length > 0) {
+          document.querySelector('.checkUnchecked').addEventListener('click', function () {
+            if (this.checked) {
+              document.querySelectorAll('.tab-pane.fade .allCheck').forEach(item => {
+                item.checked = true;
+              })
+            } else {
+              document.querySelectorAll('.tab-pane.fade .allCheck').forEach(item => {
+                item.checked = false;
+              })
+            }
+          })
+        }
+       
+
+
+        if (document.querySelectorAll('.tab-btnContact').length > 0) {
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            item.addEventListener('click', function () {
+              var activTab = item.getAttribute('data-tabAct');
+              localStorage.setItem("agentTab", activTab);
+              if (document.querySelector('.checkUnchecked').checked) {
+                document.querySelector('.checkUnchecked').click();
+                document.querySelectorAll('.tab-pane.fade .allCheck').forEach(item => {
+                  item.checked = false;
+                })
+              }
+            })
+          })
+        }
+
+        var activeTabData = localStorage.getItem("agentTab");
+        if (activeTabData != null) {
+          // console.log(activeTabData)
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            if (item.getAttribute('data-tabAct') == activeTabData) {
+              setTimeout(function () {
+                item.click();
+              }, 500)
+            }
+          })
+        } else {
+          setTimeout(function () {
+            document.querySelector('.tab-btnContact[data-tabAct="invited"]').click();
+          }, 500)
+        };
+
+
+
+        if (document.querySelectorAll('.topButtonIcon').length > 0) {
+          document.querySelectorAll('.topButtonIcon').forEach(item => {
+            item.addEventListener('click', function () {
+
+
+              // adding class and attribut on yes buttom of popup
+              if (!item.classList.contains('topButtonIconConfirm')) {
+                var currAction = item.getAttribute('data-bs-title');
+                document.querySelector('.swal2-confirm').setAttribute('data-cust', currAction);
+              }
+
+              if (document.querySelectorAll('.swal2-confirm').length > 0) {
+                document.querySelectorAll('.swal2-confirm').forEach(item => {
+                  item.addEventListener('click', function () {
+
+                    var countCheckActiveContact = 0;
+                    document.querySelectorAll('.tab-pane.fade.active.show .allCheck').forEach(item => {
+                      if (item.checked) {
+                        countCheckActiveContact = 1;
+                      }
+                    });
+
+                    if (countCheckActiveContact > 0) {
+                      var idArr = []
+                      var getAtt = item.getAttribute('data-cust');
+
+                      document.querySelectorAll('.tab-pane.fade.active.show .allCheck').forEach(item => {
+                        if (item.checked) {
+                          if (getAtt == 'Delete') {
+                            var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+                            idArr.push(idData);
+
+                          }
+                          else if (getAtt == 'Activate') {
+                            var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+                            idArr.push(idData);
+                          }
+                          else if (getAtt == 'Archive') {
+                            var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+                            idArr.push(idData);
+                          }
+                        }
+                      })
+                   
+                usersAction(getAtt, idArr);
+             
+                    }
+
+                  })
+                })
+              }
+            });
+          })
+        }
+
+        function usersAction(getAtt, idArr) {
+
+          var data = JSON.stringify({
+            "type": getAtt,
+            "data": idArr
+          });
+
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+          xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+              window.location.href = "/admin/users"
+            }
+          });
+          xhr.open("POST", "/admin/users/users-action");
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send(data);
+        }
+
+
+        function myFunction() {
+
+                  Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, activate it!'
+                  })
+        }
+
+        function myFunction1() {
+
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, archive it!'
+                        })
+       
+        }
+        function myFun2() {
+       
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          })
+        }
+        setTimeout(() => {
+          if (document.querySelectorAll('.archiveandactive').length > 0) {
+            document.querySelectorAll('.archiveandactive').forEach(item => {
+              item.addEventListener('click', function () {
+                var idArr = [];
+                var getAtt = this.getAttribute('data-type');
+                var getId = this.getAttribute('data-id');
+
+                idArr.push(getId);
+                usersAction(getAtt, idArr);
+              })
+            })
+          }
+        }, 1000)
+
+        $(document).ready(function () {
+          $(".tab-btnContact").click(function () {
+            if ($('#pills-active-tab').hasClass('active')) {
+              $('#activated_id').hide();
+              $('#archived_id').show();
+            } else if ($('#pills-archived-tab').hasClass('active')) {
+              $('#archived_id').hide();
+              $('#activated_id').show();
+            } else {
+              $('#archived_id').show();
+              $('#activated_id').show();
+            }
+          })
+        })
+        $(document).ready(function () {
+          let text = $('#error').html()
+          let successtext = $('#success').html();
+   
+             if (text !== undefined) {
+                Swal.fire({
+                title: text,
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              })
+               
+             }
+             if (successtext !== undefined) {
+                 Swal.fire({
+                  title: successtext,
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                  }
+                })
+          }
+          $("#agentInvited").dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [[0, 'desc']],
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            columnDefs: [{ targets: 7, orderable: false, sClass: "a-right" }],
+            ajax: "agents_ajax?type=Invited",
+          });
+          $("#agentActive").dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [[0, 'desc']],
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            columnDefs: [{ targets: 9, orderable: false, sClass: "a-right" }],
+            ajax: "agents_ajax?type=Active",
+          });
+          $("#agentArchived").dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [[0, 'desc']],
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            columnDefs: [{ targets: 9, orderable: false, sClass: "a-right" }],
+            ajax: "agents_ajax?type=Archived",
+          });
+
+          //  setTimeout(function () { $(".roactive").click();
+          //   $(".roactivebutton").click();}, 700);
+        });
+
+      </script>
+  </body>

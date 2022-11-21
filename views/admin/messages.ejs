@@ -1,0 +1,167 @@
+<%- include('../partials/head');%>
+
+  <body>
+    <div class="wrapper">
+      <!-- Header start -->
+      <%- include('../partials/header.ejs'); %>
+        <!-- Header end -->
+        <!-- Sidebar start -->
+        <%- include('../partials/leftbar');%>
+          <!-- Sidebar end -->
+          <div class="content-wrapper">
+            <!-- main content start -->
+            <% if (errors.length> 0) { %>
+              <div class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                <div class="row">
+                  <div class="col-xxl-7">
+                    <div class="alert alert-danger">
+                      <%= errors %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+                <% if (success.length> 0) { %>
+                  <div class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="alert alert-success">
+                          <%= success %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+
+                    <!-- main content start -->
+                    <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                      <div class="px-3 rounded-5 border-0 bg-light-secondary shadow py-4 mb-3 mb-lg-4">
+                        <div class="row align-items-center gx-2">
+                          <div class="col-md-7">
+                            <h5 class="mb-md-0">Response Templates</h5>
+                            <!-- <ul class="nav nav-pills align-items-center mb-1 mb-md-3 mb-xxl-0" id="pills-tab"
+                                role="tablist" hidden>
+                                <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                                  <button class="nav-link btn-xs active" id="pills-active-tab"
+                                    data-bs-toggle="pill" data-bs-target="#pills-active" type="button" role="tab"
+                                    aria-controls="pills-active" aria-selected="true">Active</button>
+                                </li>
+                                <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                                  <button class="nav-link btn-xs" id="pills-inactive-tab"
+                                    data-bs-toggle="pill" data-bs-target="#pills-inactive" type="button" role="tab"
+                                    aria-controls="pills-inactive" aria-selected="false">Inactive</button>
+                                </li>
+                              </ul> -->
+                          </div>
+                          <div class="col-md-5">
+                            <div class="row justify-content-xxl-end gx-2">
+                              <div class="col-sm-6">
+                                <div class="input-group my-sm-0 my-3" hidden>
+                                  <span class="input-group-text bg-light border-light" id="search-icon"><i
+                                      class="fa-solid fa-sm fa-magnifying-glass"></i></span>
+                                  <input type="text" class="form-control bg-light border-light ps-0"
+                                    placeholder="Search" aria-label="Search" aria-describedby="search-icon">
+                                </div>
+                              </div>
+                              <div class="col-sm-6 col-6">
+                                <a role="button" href="edit-messages" class="btn btn-primary w-100">Add New</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-active" role="tabpanel"
+                          aria-labelledby="pills-active-tab" tabindex="0">
+                          <div class="dataTable--custom">
+                            <table id="messageTable" class="table w-100">
+                              <thead>
+                                <tr>
+                                  <th>No</th>
+                                  <th>Response Type</th>
+                                  <th>Message Type</th>
+                                  <th>Message</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </main>
+                    <!-- main content end -->
+
+                    <div class="modal fade" id="assignedModalAlert" tabindex="-1" aria-labelledby="assignedModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content rounded-5 shadow p-lg-4 p-md-3">
+                          <div class="modal-body">
+                            <div class="d-flex align-items-center justify-content-between mb-lg-4 mb-3">
+                              <h1 class="modal-title fs-5" id="assignedModalLabel">Confirm Your Action</h1>
+                              <button type="button" class="btn-close removeAllDeleteData" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="my-md-4 my-3 py-lg-2 d-flex align-items-center">
+                              <span class="text-blue ms-2">Are you sure want to delete <span id="confirmCampaignDelete"
+                                  style="color: red;"></span></span>
+                            </div>
+                            <div class="text-md-end text-center mt-lg-4 mt-3 pt-xl-2">
+                              <a type="button" class="btn btn-small btn-outline-danger me-1 me-md-2 removeAllDeleteData"
+                                data-bs-dismiss="modal">Cancel</a>
+                              <a href="" class="btn btn-small btn-primary topButtonIcon topButtonIconConfirm"
+                                data-id="">Yes</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+    </div>
+    <%- include('../partials/footer.ejs'); %>
+
+      <script>
+        window.onload = function () {
+          setTimeout(() => {
+            if (document.querySelectorAll('.ConfirmDelete').length > 0) {
+              document.querySelectorAll('.ConfirmDelete').forEach(item => {
+                item.addEventListener('click', function () {
+                  var gotId = item.getAttribute('id');
+                  var gotName = item.getAttribute('opportunities');
+                  var gotHref = item.getAttribute('href');
+                  document.querySelector('#assignedModalAlert').querySelector('#confirmCampaignDelete').innerHTML = gotName;
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('data-id', gotId);
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('href', gotHref);
+                })
+              })
+            }
+
+            if (document.querySelectorAll('.removeAllDeleteData').length > 0) {
+              document.querySelectorAll('.removeAllDeleteData').forEach(item => {
+                item.addEventListener('click', function () {
+                  document.querySelector('#assignedModalAlert').querySelector('#confirmCampaignDelete').innerHTML = '';
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('data-id', '');
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('href', '');
+                })
+              })
+            }
+
+          }, 3000);
+        }
+
+        $(document).ready(function () {
+          $("#messageTable").dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [[0, 'desc']],
+            "initComplete": function (settings, json) {
+              $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            columnDefs: [{ targets: 4, orderable: false, sClass: "a-right" }],
+            ajax: "message_ajax",
+          });
+        });
+      </script>
+  </body>
+
+  </html>

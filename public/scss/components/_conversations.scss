@@ -1,0 +1,60 @@
+.conversation-section{
+    .msg-icon{
+        width: 10px;
+        height: 10px;
+        .fa-message{
+            font-size: 5px;
+            line-height: 1;
+        }
+    }
+    &-content{
+        .msg-section{
+            &-left{
+                border-top-left-radius: 0;
+                border-top-right-radius: 1.6rem;
+                border-bottom-left-radius: 1.6rem;
+                border-bottom-right-radius: 1.6rem;
+            }
+            &-right{
+                border-top-left-radius: 1.6rem;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 1.6rem;
+                border-bottom-right-radius: 1.6rem;
+            }
+        }
+    }
+
+    &-right{
+        .user-img{
+            width: 7rem;
+            height: 7rem;
+        }
+    }
+    @include media-breakpoint-up(xl) { 
+        &-content{
+            height: calc(100vh - 120px);
+            overflow: hidden;
+            .msg-section{
+                height: calc(100vh - 400px);
+                overflow: auto;
+            }
+        }
+        &-left{
+            height: calc(100vh - 120px);
+            overflow: auto;
+        }
+    
+        &-right{
+            height: calc(100vh - 120px);
+            overflow: auto;
+        }
+     }
+     @include media-breakpoint-down(xl) { 
+        &-content{
+            .msg-section{
+                height: 400px;
+                overflow: auto;
+            }
+        }
+     }
+}

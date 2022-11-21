@@ -1,0 +1,631 @@
+<%- include('../partials/head');%>
+
+<body>
+  <div class="wrapper">
+    <!-- Sidebar start -->
+    <%- include('../partials/leftbar');%>
+    <!-- Sidebar end -->
+    <div class="content-wrapper">
+      <!-- Header start -->
+      <%- include('../partials/header.ejs'); %>
+      <!-- Header end -->
+      <% if (errors.length> 0) { %> <div style="display: none;" id="error">
+        <%= errors %>
+      </div>
+      <% } %>
+        <% if (success.length> 0) { %> <div style="display: none;" id="success">
+            <%= success %>
+          </div>
+          <% } %>
+      <!-- main content start -->
+      <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+        <h5 class="text-dark mb-3">Opportunities</h5>
+        <div class="px-3 rounded-5 border-0 bg-light-secondary shadow py-4 mb-3 mb-lg-4">
+          <div class="row  gx-2">
+              <div class="col-xxl-7 col-xl-8">
+                <ul class="nav nav-pills align-items-center mb-1 mb-md-3 mb-xxl-0 flex-nowrap scroll-hide overflow-auto" id="pills-tab" role="tablist">
+                <!-- checkbox -->
+                  <li  class="nav-item me-2 mb-md-0 mb-1 d-flex align-items-center" role="presentation"   >
+                    <input class="form-check-input border-blue checkUnchecked form-custom-check mt-0" type="checkbox"  id="checkboxNoLabel"   value=""  aria-label="..." />
+                    <span class="cursor-pe ms-1" data-bs-toggle="tooltip"  data-bs-placement="bottom"  data-bs-title="Select All"  >
+                      <i class="fa-solid fa-sort-down text-blue"></i>
+                    </span>
+                  </li>
+                  <!-- Move -->
+                  <!-- <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1" role="presentation" id="move_id"  >
+                    <span class="topButtonIcon d-flex align-items-center justify-content-center wh-40 rounded-circle bg-light-hover cursor-pe" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Move"  >
+                      <svg xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"   viewBox="0 0 23 23" >
+                        <path id="Path"  d="M18.4,15.793,23,11.5,18.4,7.207v2.76H13.008V4.6h2.76L11.5,0,7.207,4.6h2.76V9.992H4.6V7.207L0,11.5l4.6,4.293V13.008H9.992V18.4H7.207L11.5,23l4.293-4.6H13.008V13.008H18.4Z" fill="#043072"  />
+                      </svg>
+                    </span>
+                  </li> -->
+                  <!-- Reassign -->
+                  <!-- <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1"  role="presentation"  id="reassign_id"   >
+                    <span class="topButtonIcon d-flex align-items-center justify-content-center wh-40 rounded-circle bg-light-hover cursor-pe" data-bs-toggle="tooltip"  data-bs-placement="bottom"   data-bs-title="Reassign" >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="19.4" height="19.4" viewBox="0 0 20.4 20.4">
+                        <g id="noun-assign-1738694" transform="translate(0.2 0.2)">
+                          <path id="Combined_Shape"  data-name="Combined Shape" d="M.851,20A.842.842,0,0,1,0,19.148V.851A.891.891,0,0,1,.851,0h18.3A.842.842,0,0,1,20,.851V19.185a.8.8,0,0,1-.235.565A.86.86,0,0,1,19.15,20Zm.85-1.7H18.3V1.7H1.7Zm3.734-4.407a.852.852,0,0,1,0-1.7h9.131a.838.838,0,0,1,.851.852.808.808,0,0,1-.814.851Zm0-6.074a.852.852,0,0,1,0-1.7h9.131a.838.838,0,0,1,.851.852.829.829,0,0,1-.814.851Z" fill="#043072" stroke="#043072" stroke-miterlimit="10" stroke-width="0.4"/>
+                        </g>
+                      </svg>
+                    </span>
+                  </li> -->
+                  <!-- delete -->
+                  <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1" role="presentation">
+                    <span class="topButtonIcon d-flex align-items-center justify-content-center wh-40 rounded-circle bg-light-hover cursor-pe" data-bs-toggle="tooltip" data-bs-placement="bottom" onclick="myFun2();"  data-bs-title="Delete">
+                      <svg xmlns="http://www.w3.org/2000/svg"     width="18" height="18.999"  viewBox="0 0 22 22.999"  >
+                        <path id="Combined_Shape" data-name="Combined Shape"d="M16.664,23H5.428a3.117,3.117,0,0,1-2.008-.681A2.865,2.865,0,0,1,2.387,20.1V5.24H1.066a1.049,1.049,0,1,1,0-2.1H1.1c.8-.021,1.614,0,2.417,0h2.71v-.31c0-.163-.005-.33,0-.493A2.39,2.39,0,0,1,6.848.762C7.6-.082,8.675,0,9.692,0h3.036c.256,0,.511-.005.767,0a2.411,2.411,0,0,1,2.2,1.446,3.891,3.891,0,0,1,.186,1.583v.111h5.053A1.077,1.077,0,0,1,22,4.191,1.067,1.067,0,0,1,20.934,5.24H20.9c-.432.011-.866.01-1.3.007V19.566c0,.189.005.382,0,.572A2.925,2.925,0,0,1,16.752,23L16.7,23h-.032ZM5.284,20.919l-.029,0A.084.084,0,0,0,5.284,20.919ZM5.22,20.9H5.3c1.933.031,3.866,0,5.8,0h5.6c.038,0,.072,0,.1,0,.059-.015.118-.032.178-.046l.009,0,.055-.028c.009-.006.066-.037.113-.065l.01-.008c.037-.031.069-.063.1-.094s.044-.047.067-.072c.027-.044.053-.091.056-.1.013-.022.026-.047.039-.072.016-.058.033-.135.042-.174,0-.008,0-.016,0-.026V5.287H4.527c.013,1.443-.015,2.89-.015,4.33V20.143a.386.386,0,0,0,.012.087L4.5,20.165c.012.036.013.087.022.124,0,.009.02.071.036.124l.008.013c.026.047.058.094.085.147l.022.041c.044.045.107.1.15.14l.057.033c.036.023.072.041.1.059a1.4,1.4,0,0,1,.162.046.212.212,0,0,1,.045.008Zm11.956-.157c.025-.016.044-.029.042-.032Zm.1-.085s.023-.024.044-.058C17.305,20.623,17.291,20.642,17.276,20.662ZM4.683,20.634Zm-.059-.083c0,.006.017.031.047.061L4.662,20.6c-.015-.024-.032-.049-.037-.049ZM17.4,20.489c.005,0,.014-.022.024-.056C17.414,20.451,17.406,20.47,17.4,20.489Zm-12.813,0c.006,0-.01-.036-.026-.068A.236.236,0,0,0,4.586,20.489Zm-.052-.118-.006-.011Zm14-15.083ZM8.468,3.143H13.75v-.8c0-.01,0-.018,0-.025l0-.009,0,0a.187.187,0,0,1,0-.024.168.168,0,0,0-.012-.022.093.093,0,0,0,0,.011l0-.012,0-.013c-.007-.011-.016-.03-.025-.048L13.7,2.2c-.018-.016-.063-.044-.087-.061l-.024-.012-.024-.006.008,0-.007,0h-.031L13.516,2.1c-.073-.021-.07-.008-.041,0l.008,0c-.052,0-.108,0-.164,0H8.583l-.015,0-.054.015.018-.008.012-.007h0c-.027,0-.04.008.007,0,.029-.017.029-.026-.068.026h0l-.013,0,0,0h0l0,0a.6.6,0,0,1-.074.071l-.026.044,0,.008,0,.013a.456.456,0,0,0-.007.061v.8Zm5.264-.9-.008-.023-.013-.016A.384.384,0,0,0,13.733,2.247ZM8.4,2.2l.024-.025.016-.015-.008,0c.006-.008.008-.013,0-.015s-.01.009-.02.025a.086.086,0,0,0-.023.017s.007,0,.014,0Zm.055-.055h0ZM4.524,20.23a.323.323,0,0,1,.017.053A.272.272,0,0,1,4.524,20.23Zm7.763-3.121V9.077a1.065,1.065,0,0,1,2.129,0v8.031a1.077,1.077,0,0,1-1.065,1.049H13.31A1.07,1.07,0,0,1,12.287,17.108Zm-4.708,0V9.077a1.065,1.065,0,0,1,2.129,0v8.031a1.077,1.077,0,0,1-1.065,1.049H8.6A1.07,1.07,0,0,1,7.579,17.108ZM13.742,2.279l.007.032A.052.052,0,0,1,13.742,2.279ZM8.416,2.172l.016-.01-.008.01-.016.013Zm.065-.035h0l.031-.008a.181.181,0,0,1-.047.014Zm5-.025h.022l.033,0,.03.009a.081.081,0,0,1-.024,0A.187.187,0,0,1,13.483,2.111Z" transform="translate(0 0)" fill="#043072"/>
+                      </svg>
+                    </span>
+                  </li>
+                  <!-- Stages -->
+                  <li class="nav-item me-2 mb-md-0 mb-1" role="presentation"> <button class="tab-btnContact tableid nav-link border border-primary text-nowrap  fs-14 p-2" id="pills-new-tab" data-bs-toggle="pill"  data-bs-target="#pills-new" type="button"   role="tab"  aria-controls="pills-new" aria-selected="true" data-tabAct="newopportunities" tableid="newopportunities" > New Opportunities  </button>
+                  </li>
+                  <li class="nav-item me-2 mb-md-0 mb-1" role="presentation"> <button class="tab-btnContact tableid nav-link border border-primary text-nowrap fs-14 p-2" id="pills-months-tab" data-bs-toggle="pill" data-bs-target="#pills-months"  type="button"  role="tab"   aria-controls="pills-months"  aria-selected="false"  data-tabAct="months" tableid="months" >  3+ Months </button>
+                  </li>
+                  <li class="nav-item me-2 mb-md-0 mb-1" role="presentation"> <button class="tab-btnContact tableid nav-link border border-primary text-nowrap fs-14 p-2" id="pills-follow-tab" data-bs-toggle="pill"  data-bs-target="#pills-follow"     type="button" role="tab"   aria-controls="pills-follow"  aria-selected="false" data-tabAct="follow" tableid="follow">Follow Up  </button>
+                  </li>
+                  <li class="nav-item me-2 mb-md-0 mb-1" role="presentation"> <button class="tab-btnContact tableid nav-link border border-primary text-nowrap fs-14 p-2" id="pills-underwriten-tab" data-bs-toggle="pill"  data-bs-target="#pills-underwriten"   type="button"   role="tab"  aria-controls="pills-underwriten"   aria-selected="false" data-tabAct="underwriten" tableid="underwriten"> Underwriten  </button>
+                  </li>
+                  <li class="nav-item me-2 mb-md-0 mb-1" role="presentation"> <button class="tab-btnContact tableid nav-link border border-primary text-nowrap fs-14 p-2" id="pills-deal-tab" data-bs-toggle="pill" data-bs-target="#pills-deal" type="button"  role="tab" aria-controls="pills-deal"  aria-selected="false" data-tabAct="deal"  tableid="deal">  Deal Started   </button>
+                  </li>
+                  <li class="nav-item" role="presentation">  <button class="tab-btnContact tableid nav-link border border-primary text-nowrap fs-14 p-2"  id="pills-opportunities-tab"  data-bs-toggle="pill" data-bs-target="#pills-opportunities"  type="button" role="tab" aria-controls="pills-opportunities"  aria-selected="false" data-tabAct="no_opportunities" tableid="no_opportunities" >  No Opportunities </button>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-xxl-5 col-xl-4 text-xl-end">
+                <ul class="list-inline d-md-flex align-items-center justify-content-xxl-end mb-0 text-xxl-end" >
+                  <!-- <li class="list-inline-item">
+                    <div class="input-group my-sm-0 my-3">
+                      <span class="input-group-text bg-light border-light"  id="search-icon" ><i class="fa-solid fa-sm fa-magnifying-glass"></i ></span>
+                      <input  type="text"  class="form-control bg-light border-light ps-0" placeholder="Search"  aria-label="Search" aria-describedby="search-icon" />
+                    </div>
+                  </li> -->
+                  <li class="list-inline-item">
+                    <button type="button"  data-bs-toggle="modal" data-bs-target="#addOpportunityModal" class="btn btn-success text-capitalize px-3"  >  Add new  </button>
+                  </li>
+                  <!-- <li class="list-inline-item">
+                    <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle dropdown-arrow"   type="button"  data-bs-toggle="dropdown" aria-expanded="false" >
+                      <input class="form-check-input"  type="checkbox" id="checkboxNoLabel" value="" aria-label="..." /><i class="fa-solid fa-chevron-down ms-2"></i> </button>
+                      <ul  class="dropdown-menu border-light shadow rounded-4 dropdown-menu-end"  >
+                        <li>   <a class="dropdown-item" href="opportunities.html"  >Opportunities List</a   >   </li>
+                        <li> <a class="dropdown-item"  href="opportunities-grid.html" >Opportunities Grid</a></li>
+                      </ul>
+                    </div>
+                  </li> -->
+                </ul>
+              </div>
+          </div>
+        </div>
+        <div class="card-body pt-1">
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade" id="pills-new" role="tabpanel" aria-labelledby="pills-new-tab" tabindex="0"  >
+                <div class="dataTable--custom">
+                  <table id="newopportunities" class="table w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pipeline</th>
+                        <th>Stage</th>
+                        <th>Lead value</th>
+                        <th>Owner</th>
+                        <th>Source</th>
+                        <!-- <th>Tags</th> -->
+                        <!-- <th>Company Name</th> -->
+                        - <th>Status</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-months" role="tabpanel" aria-labelledby="pills-months-tab" tabindex="0" >
+                <div class="dataTable--custom">
+                  <table id="months" class="table w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pipeline</th>
+                        <th>Stage</th>
+                        <th>Lead value</th>
+                        <th>Owner</th>
+                        <th>Source</th>
+                        <!-- <th>Tags</th>  -->
+                        <!-- <th>Company Name</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-follow" role="tabpanel" aria-labelledby="pills-follow-tab" tabindex="0" >
+                <div class="dataTable--custom">
+                  <table id="follow" class="table w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pipeline</th>
+                        <th>Stage</th>
+                        <th>Lead value</th>
+                        <th>Owner</th>
+                        <th>Source</th>
+                        <!-- <th>Tags</th> -->
+                        <!-- <th>Company Name</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-underwriten" role="tabpanel" aria-labelledby="pills-underwriten-tab" tabindex="0" >
+                <div class="dataTable--custom">
+                  <table id="underwriten" class="table w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pipeline</th>
+                        <th>Stage</th>
+                        <th>Lead value</th>
+                        <th>Owner</th>
+                        <th>Source</th>
+                        <!-- <th>Tags</th> -->
+                        <!-- <th>Company Name</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div  class="tab-pane fade" id="pills-deal" role="tabpanel" aria-labelledby="pills-deal-tab" tabindex="0"  >
+                <div class="dataTable--custom">
+                  <table id="deal" class="table w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pipeline</th>
+                        <th>Stage</th>
+                        <th>Lead value</th>
+                        <th>Owner</th>
+                        <th>Source</th>
+                        <!-- <th>Tags</th> -->
+                        <!-- <th>Company Name</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div  class="tab-pane fade" id="pills-opportunities" role="tabpanel" aria-labelledby="pills-opportunities-tab" tabindex="0" >
+                <div class="dataTable--custom">
+                  <table id="no_opportunities" class="table w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Pipeline</th>
+                        <th>Stage</th>
+                        <th>Lead value</th>
+                        <th>Owner</th>
+                        <th>Source</th>
+                        <!-- <th>Tags</th> -->
+                        <!-- <th>Company Name</th> -->
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+      </main>
+      <!-- main content end -->
+    </div>
+  </div>
+  <!-- Add Opportunity modal start -->
+  <div class="modal fade" id="addOpportunityModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addOpportunityLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4">
+        <div class="modal-body p-lg-5 p-md-4">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5 class="modal-title h4" id="addOpportunityLabel">Add Opportunity</h5>
+            <button type="button" class="btn btn-link text-primary" data-bs-dismiss="modal" aria-label="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16.896" height="16.896" viewBox="0 0 19.896 19.896">
+                <g id="noun-cross-1776308" transform="translate(0.996 0.996)" opacity="0.9">
+                  <path id="Path" d="M17.8.2a.691.691,0,0,0-.978,0L9,8.022,1.18.2A.691.691,0,0,0,.2,1.18L8.022,9,.2,16.82a.691.691,0,0,0,.978.978L9,9.978l7.82,7.82a.691.691,0,0,0,.978-.978L9.978,9,17.8,1.18A.691.691,0,0,0,17.8.2Z" fill="#6d38bc" stroke="#6d38bc" stroke-miterlimit="10" stroke-width="1.8"/>
+                </g>
+              </svg>
+            </button>
+          </div>
+          <hr>
+          <div class="px-xxl-4 px-lg-3">
+            <ul class="nav nav-pills nav-pills-custom d-flex flex-nowrap overflow-auto my-md-4 my-3 py-lg-2 py-xxl-3"
+              id="pills-tab" role="tablist">
+              <li class="nav-item me-xl-3 me-xxl-4" role="presentation">
+                <button class="nav-link text-nowrap active" id="pills-opportunity-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-opportunity" type="button" role="tab" aria-controls="pills-opportunity"
+                  aria-selected="true">Opportunity</button>
+              </li>
+              <!-- <li class="nav-item" role="presentation">
+                <button class="nav-link text-nowrap" id="pills-tasks-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-tasks" type="button" role="tab" aria-controls="pills-tasks"
+                  aria-selected="false">Tasks</button>
+              </li> -->
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-opportunity" role="tabpanel"
+                aria-labelledby="pills-opportunity-tab" tabindex="0">
+                <form class="row"  id="frm" name="frm"  method="post"  action="/admin/update-opportunities" >
+             
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="first_name" class="form-label">First Name*</label>
+                    <input type="text" class="form-control form-control-lg" name="first_name" placeholder="First Name" required />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="last_name" class="form-label">Last Name*</label>
+                    <input type="text" class="form-control form-control-lg" name="last_name" placeholder="Last Name" required />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="email" class="form-label">Email*</label>
+                    <input type="email" class="form-control form-control-lg" name="email" required placeholder="Email" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                    <label for="phone" class="form-label">Phone Number*</label>
+                    <input id="phone" name="phone_number" class="form-control form-control-lg"placeholder="Phone Number"  name=”phone” type='tel'>
+                    <input type="hidden" name="code" id="countryCode"  />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="address" class="form-label">Address*</label>
+                    <textarea id="address" name="address" type="text" class="form-control form-control-lg"
+                      placeholder="Address" required></textarea>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="city" class="form-label">City* </label>
+                      <input type="city" id="city" name="city" class="form-control form-control-lg" required placeholder="city" >
+                    </div>
+                  </div>
+                <div class="col-lg-6">
+                    <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                      <label for="post_code" class="form-label">Post code*</label>
+                      <input id="post_code" type="number" name="post_code" class="form-control form-control-lg" placeholder="Post Code" required>
+                    </div>
+                  </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="state" class="form-label">State*</label>
+                    <select name="state" id="state" class="form-select form-select-lg mb-3 "   aria-label=".form-select-lg example" required>
+                      <option disabled selected>-Select-</option>
+                      <% for(var i in states) { %>
+                        <option value="<%=states[i].abbrev%>" >
+                          <%=states[i].name%>
+                        </option>
+                        <%} %>                       
+                    </select>
+                  </div>
+                </div>
+                 <div class="col-lg-6" id="agent_div">
+                </div> 
+                <div class="col-lg-12">
+                  <h4 class="pt-lg-3 pt-2 mb-lg-4 mb-3 pb-md-1">
+                    Opportunity Info
+                  </h4>
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="opportunity_name" class="form-label" >Opportunity Name</label  >
+                    <input name="opportunityname" type="text" class="form-control" placeholder="Opportunity Name" required/>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="select_pipeline" class="form-label" >Select Pipeline</label  >
+                    <select name="pipeline" class="form-select" required>
+                      <option disabled selected>-Select-</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="select_stage" class="form-label">Select Stage</label >
+                    <select name="selectstage" class="form-select"required>
+                      <option disabled selected>-Select-</option>
+                      <option value="new_opportunities">New Opportunities</option>
+                      <option value="3 Months">3+ Months</option>
+                      <option value="Follow Up'">Follow Up</option>
+                      <option value="Underwriten">Underwriten</option>
+                      <option value="Deal Started">Deal Started</option>
+                      <option value="No Opportunities">No Opportunities</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="status" class="form-label">Status</label>
+                    <select name="status" class="form-select" required>
+                      <option selected>-Select-</option>
+                      <option value="1">Open</option>
+                      <option value="2">Close</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="lead_value" class="form-label">Lead Value</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-white border-end-0" id="dollar-sign" >$</span>
+                      <input name="leadvalue" type="text"  class="form-control border-start-0 ps-0"  placeholder="Lead Value" aria-describedby="dollar-sign"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="owner" class="form-label">Owner</label>
+                    <select name="owner" class="form-select" required>
+                      <option selected disabled>-Select-</option>
+                      <option value="Alfred Gardner">Alfred Gardner</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="source" class="form-label">Source</label>
+                    <input name="source"  type="text" class="form-control" placeholder="source"/>
+                  </div>
+                </div>
+                <div class="col-lg-12 text-sm-end">
+                    <ul class="list-inline mb-0 mt-md-5 mt-xxl-6 mt-4 pt-1 pt-xl-2">
+                      <li class="list-inline-item me-xl-3">
+                       <button type="button" class="btn btn-lg btn-outline-danger btn-small"  data-bs-dismiss="modal"  aria-label="Close"> Cancel </button>
+                      </li>
+                      <li class="list-inline-item">
+                        <button type="submit" name="submit" class="btn btn-lg btn-primary btn-small">  Add</button>
+                      </li>
+                    </ul>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script>
+    $(document).ready(function () {
+
+      var input = $("#phone");
+      geoIpLookup = function (callback) {
+        $.get('https://ipinfo.io', function () {
+        }, "jsonp").always(function (resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      },
+        geoIpLookup((countryCode) => {
+          input.intlTelInput({ initialCountry: countryCode.toLowerCase(), separateDialCode: true });
+        })
+
+      input.on("countrychange", function () {
+        console.log('dialCode ', input.intlTelInput("getSelectedCountryData").dialCode)
+        console.log('countryCode ', input.intlTelInput("getSelectedCountryData").iso2)
+        console.log('phoneNumber ', input.val())
+      });
+      var fullContact = "+" + input.intlTelInput("getSelectedCountryData").dialCode + " " + input.val();
+    });
+      const phoneNo = () => {
+        input.intlTelInput("setCountry", "gb");
+        input.intlTelInput("setNumber", "+447986129475");
+      }
+      // Onload Set Country Code
+      if (document.querySelectorAll('#phone').length > 0) {
+        document.querySelector('#phone').addEventListener('focus', () => {
+          var code = document.querySelector('.selected-dial-code').textContent;
+          var inputcode = document.querySelector('#phone').value;
+          document.querySelector('#countryCode').value = code + ' ' + inputcode;
+        })
+
+        document.querySelector('#phone').addEventListener('keyup', () => {
+          var code = document.querySelector('.selected-dial-code').textContent;
+          var inputcode = document.querySelector('#phone').value;
+          document.querySelector('#countryCode').value = code + ' ' + inputcode;
+        })
+      }
+</script>
+<script type="text/javascript">
+  $('#state').on("change", function () {
+  var abbrev = $(this).val()
+  $.ajax({
+    type: "get",
+    url: `/admin/update_state`,
+    data: { abbrev:abbrev},
+    success: function (data) {
+      if(data.length>0){
+        $("#agent_div").show();
+        for (var i in data){
+          $("#agent_div").html(`<div class="mb-3 mb-xl-4 pb-md-2">
+            <label  for="agentid" class="form-label">Agent</label>
+            <select name="agent_id" id="agent_id" class="form-select form-select-lg mb-3 " aria-label=".form-select-lg example" required>
+            <option value="${data[i].id}" >${data[i].first_name+' '+data[i].last_name}</option></select>
+            </div>`)
+        }
+      }
+      if(data.length<=0){
+      Swal.fire('Agent must be required try to Differ State')
+      $("#agent_div").hide();
+      $('#state').val('')
+      }
+    },
+  });
+});
+</script>
+<script type="text/javascript">
+function myFun2() {
+      Swal.fire({
+         title: 'Are you sure?',
+         text: "You won't be able to revert this!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         confirmButtonText: 'Yes, delete it!'
+      })
+    }
+    $(document).ready(function () {
+      $("#frm").validate();
+        let text = $('#error').html()
+        let successtext = $('#success').html();
+        if (text !== undefined) {
+                Swal.fire({
+                title: text,
+                showClass: {popup: 'animate__animated animate__fadeInDown'},
+                hideClass: {popup: 'animate__animated animate__fadeOutUp' }
+              })
+            }
+        if (successtext !== undefined) {
+                 Swal.fire({
+                  title: successtext,
+                  showClass: {popup: 'animate__animated animate__fadeInDown'},
+                  hideClass: {popup: 'animate__animated animate__fadeOutUp'}
+                })
+            }
+
+        if (document.querySelectorAll('.checkUnchecked').length > 0) {
+          document.querySelector('.checkUnchecked').addEventListener('click', function () {
+          if (this.checked) {
+              document.querySelectorAll('.tab-pane.fade .allCheck').forEach(item => {
+              item.checked = true;
+            })
+          } else {
+              document.querySelectorAll('.tab-pane.fade .allCheck').forEach(item => {
+              item.checked = false;
+            })
+          }
+          })
+        }
+
+        if (document.querySelectorAll('.tab-btnContact').length > 0) {
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            item.addEventListener('click', function () {
+              var activTab = item.getAttribute('data-tabAct');
+              localStorage.setItem("agentTab", activTab);
+              if (document.querySelector('.checkUnchecked').checked) {
+                document.querySelector('.checkUnchecked').click();
+                document.querySelectorAll('.tab-pane.fade .allCheck').forEach(item => {
+                  item.checked = false;
+                })
+              }
+            })
+          })
+        }
+
+        var activeTabData = localStorage.getItem("agentTab");
+        if (activeTabData != null) {
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            if (item.getAttribute('data-tabAct') == activeTabData) {
+              setTimeout(function () {
+                item.click();
+              }, 500)
+            }
+          })
+        } else {
+          setTimeout(function () {
+            document.querySelector('.tab-btnContact[data-tabAct="newopportunities"]').click();
+          }, 500)
+        };
+
+        if (document.querySelectorAll('.topButtonIcon').length > 0) {
+          document.querySelectorAll('.topButtonIcon').forEach(item => {
+            item.addEventListener('click', function () {
+              if (!item.classList.contains('topButtonIconConfirm')) {
+                var currAction = item.getAttribute('data-bs-title');
+                document.querySelector('.swal2-confirm').setAttribute('data-cust', currAction);
+              }
+              if (document.querySelectorAll('.swal2-confirm').length > 0) {
+                document.querySelectorAll('.swal2-confirm').forEach(item => {
+                  item.addEventListener('click', function () {
+                    var countCheckActiveContact = 0;
+                    document.querySelectorAll('.tab-pane.fade.active.show .allCheck').forEach(item => {
+                      if (item.checked) { countCheckActiveContact = 1;}
+                    });
+                    if (countCheckActiveContact > 0) {
+                      var idArr = []
+                      var getAtt = item.getAttribute('data-cust');
+                      document.querySelectorAll('.tab-pane.fade.active.show .allCheck').forEach(item => {
+                        if (item.checked) {
+                          if (getAtt == 'Delete') {
+                            var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+                            idArr.push(idData);
+                          }
+                        }
+                      })
+                      usersAction(getAtt, idArr);
+                    }
+                  })
+                })
+              }
+            });
+          })
+        }
+
+        function usersAction(getAtt, idArr) {
+          var data = JSON.stringify({
+            "type": getAtt,
+            "data": idArr
+          });
+
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+          xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+              window.location.href = "/admin/opportunities"
+            }
+          });
+          xhr.open("POST", "/admin/opportunities/users-action");
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send(data);
+        }
+
+        var tableidlength=document.querySelectorAll('.tableid').forEach(item => {
+        var checktype = item.getAttribute('data-tabAct');
+        var tableid = item.getAttribute('tableid');
+            $(`#${tableid}`).dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            aaSorting: [[0, 'desc']],
+            "initComplete": function (settings, json) {
+          },
+            columnDefs: [{ targets:7, orderable: false, sClass: "a-right" }],
+            ajax: `opportunities_ajax?type=${checktype}`,
+          });
+        })
+  })
+
+</script>
+  <!-- Add Opportunity modal end -->
+  <%- include('../partials/footer.ejs'); %>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!-- Sidebar start -->
+<aside class="main-sidebar bg-white rounded-5">
+  <div class="pe-3 ps-1 sidebar-nav pt-lg-3 pt-5">
+    <i id="closeSidebar"
+      class="fa-solid fa-circle-xmark fa-lg text-black-50 d-lg-none position-absolute cursor-pe top-0 end-0 mt-4 me-3"></i>
+    <ul class="nav navbar d-block">
+      <!-- <li class="nav-item w-100 mb-2 pb-1">
+        <a
+          class="nav-link d-flex align-items-center"
+          href="<%= global.SITE_URL %>admin/dashboard"
+          data-bar="dashboard"
+        >
+          <img
+            class="me-2 me-xl-3 flex-shrink-0"
+            src="/images/temp/sidebar/home.svg"
+          />
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item w-100 mb-2 pb-1">
+        <a
+          class="nav-link d-flex align-items-center"
+          href="<%= global.SITE_URL %>admin/admin-users"
+          data-bar="admin-users"
+        >
+          <img
+            class="me-2 me-xl-3 flex-shrink-0"
+            src="/images/temp/sidebar/home.svg"
+          />
+          Admin Users
+        </a>
+      </li> -->
+      <li class="nav-item w-100 mb-2 pb-1">
+        <a class="nav-link d-flex align-items-center" href="<%= global.SITE_URL %>admin/users" data-bar="users">
+          <span class="me-2 me-xl-3 shadow-sm d-flex align-items-center justify-content-center rounded-3 fs-icon flex-shrink-0">
+            <img  src="/images/temp/sidebar/home.svg" />
+          </span>
+          Agents
+        </a>
+      </li>
+      <li class="nav-item w-100 mb-2 pb-1">
+        <a class="nav-link d-flex align-items-center" href="<%= global.SITE_URL %>admin/contacts" data-bar="contacts">
+          <span class="me-2 me-xl-3 shadow-sm d-flex align-items-center justify-content-center rounded-3 fs-icon flex-shrink-0">
+            <img  src="/images/temp/sidebar/home.svg" />
+          </span>
+          Leads/Contacts
+        </a>
+      </li>
+
+      <!--  href="<%= global.SITE_URL %>admin/opportunities" -->
+     <li class="nav-item w-100 mb-2 pb-1">
+          <a class="nav-link d-flex align-items-center"  href="<%= global.SITE_URL %>admin/opportunities" data-bar="opportunities">
+            <span class="me-2 me-xl-3 shadow-sm d-flex align-items-center justify-content-center rounded-3 fs-icon flex-shrink-0">
+              <img  src="/images/temp/sidebar/home.svg" />
+            </span>
+            Opportunities
+          </a>
+        </li>
+       
+      <li class="nav-item w-100 mb-2 pb-1">
+        <a class="nav-link arrow-icon collapsed d-flex align-items-center" data-bs-toggle="collapse" data-bar="setup"
+          href="#collapseSetup" role="button" aria-expanded="false" aria-controls="collapseSetup">
+          <span class="me-2 me-xl-3 shadow-sm d-flex align-items-center justify-content-center rounded-3 fs-icon flex-shrink-0">
+            <img  src="/images/temp/sidebar/home.svg" />
+          </span>
+          Setup
+        </a>
+        <div class="collapse" id="collapseSetup">
+          <nav class="nav sub-dropdown flex-column ms-5 ps-4">
+            <a data-menubar="campaign" class="nav-link px-0 sub_menu"
+              href="<%= global.SITE_URL %>admin/setup/campaign">Campaign</a>
+            <a data-menubar="states" class="nav-link px-0 sub_menu"
+              href="<%= global.SITE_URL %>admin/setup/states">States</a>
+            <a data-menubar="messages" class="nav-link px-0 sub_menu"
+              href="<%= global.SITE_URL %>admin/setup/messages">Response Templates</a>
+            <a data-menubar="tags" class="nav-link px-0 sub_menu" href="<%= global.SITE_URL %>admin/setup/tags">Tags</a>
+            <a
+            class="nav-link px-0 sub_menu"
+            href="<%= global.SITE_URL %>admin/admin-users"
+            data-menubar="admin-users"
+          >Admin Users</a>
+          </nav>
+        </div>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+<script>
+  if (document.querySelectorAll("a[data-bar]").length > 0) {
+    var currLink = window.location.pathname;
+    var currPageSplit = currLink.split("admin/");
+    var currPage = currPageSplit[1];
+
+    setTimeout(() => {
+      if (currPage == "add-bulk" || currPage == "edit-user") {
+        document.querySelector('a[data-bar="users"]').classList.add("active");
+      } else if (currPage == "edit-admin" || currPage == 'admin-users') {
+        document.querySelector('a[data-bar="setup"]').classList.add("active");
+        if(currPage == 'admin-users'){
+          document.querySelector('a[data-bar="setup"]').click();
+          document.querySelector('a.sub_menu[data-menubar="admin-users"]').classList.add('active');
+        }
+      }
+    }, 300);
+
+    document.querySelectorAll("a[data-bar]").forEach((item) => {
+      if (item.getAttribute("data-bar") == currPage) {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+
+      item.addEventListener("click", function () {
+        localStorage.removeItem("contactTab");
+        localStorage.removeItem("agentTab");
+        document.querySelectorAll("a[data-bar]").forEach((item) => {
+          item.classList.remove("active");
+        });
+        item.classList.add("active");
+      });
+    });
+
+    if (document.querySelectorAll("a[data-bar]").length > 0) {
+      var currLink = window.location.pathname;
+      var currPageSplit = currLink.split("/");
+      var currPage = currPageSplit[2];
+      var NxtPage = currPageSplit[3];
+
+      if (document.querySelectorAll(".sub_menu[data-menubar]").length > 0) {
+        if (NxtPage != undefined) {
+          document.querySelectorAll(".sub_menu[data-menubar]").forEach((item) => {
+            if (item.getAttribute('data-menubar') == NxtPage) {
+              item.parentElement.parentElement.classList.add('show');
+              item.classList.add('active');
+            };
+          })
+        }
+      }
+
+      document.querySelectorAll("a[data-bar]").forEach((item) => {
+        if (item.getAttribute("data-bar") == currPage) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+
+        item.addEventListener("click", function () {
+          document.querySelectorAll("a[data-bar]").forEach((item) => {
+            item.classList.remove("active");
+          });
+
+          item.classList.add("active");
+        });
+      });
+    }
+  }
+</script>

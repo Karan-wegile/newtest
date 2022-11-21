@@ -1,0 +1,40 @@
+<header class="ps-lg-3 pe-lg-4 px-3 fixed-top main-header">
+    <div class="row gx-sm-3 gx-1 align-items-center h-100 justify-content-between">
+        <div class="col-auto d-lg-none">
+            <i id="mobileMenuBtn" class="fa-solid fa-bars cursor-pe"></i>
+        </div>
+        <div class="col-6 col-sm">
+            <img src="/images/temp/logo.png" class="img-fluid flex-shrink-0 logo-img rounded-3" alt="Logo">
+        </div>
+        
+        <div class="col-5 col-sm-4 ms-auto">
+            <ul class="list-inline text-center d-flex justify-content-end align-items-center mb-0">
+                <li class="list-inline-item me-sm-0 px-sm-3 px-1 py-3">
+                    <div
+                    class="d-flex align-items-center lh-1 justify-content-center rounded-circle bell-icon border cursor-pe">
+                    <div class="position-relative">
+                      <img src="/images/temp/bell.png">
+                      <span
+                        class="position-absolute top-0 end-0 mt-1 me-n1 translate-middle p-1 bg-danger rounded-circle">
+                        <span class="visually-hidden">New alerts</span>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="btn-group">
+                        <button class="btn btn-link text-secondary p-0 text-decoration-none dropdown-toggle dropdown-arrow-none d-flex align-items-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/images/temp/user.jpg" class="rounded-circle object-fit-cover user-img flex-shrink-0 me-2" alt="logo">
+                            <span class="d-sm-block d-none ms-sm-1"><%= session.admin_user_name %></span>
+                            <i class="fa-solid fa-chevron-down fa-sm me-1 ms-md-2"></i>
+                        </button>
+                        <ul class="dropdown-menu border-0 shadow rounded-4 dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="<%= global.SITE_URL %>admin/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

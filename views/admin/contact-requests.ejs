@@ -1,0 +1,293 @@
+
+<%- include('../partials/head');%>
+<body>
+  <div class="wrapper">
+    <!-- Header start -->
+    <%- include('../partials/header.ejs'); %>
+    <!-- Header end -->
+
+    <!-- Sidebar start -->
+    <%- include('../partials/leftbar');%>
+    <!-- Sidebar end -->
+
+    <div class="content-wrapper">
+
+      <!-- main content start -->
+      <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+        <div class="card border-0 rounded-5 shadow bg-light-secondary overflow-hidden">
+          <div class="card-header rounded-5 border-0 bg-white shadow py-4">
+            <div class="row align-items-center">
+              <div class="col-xxl-5 col-md-3">
+                <h6 class="mb-md-0 text-primary">Contact Requests</h6>
+              </div>
+              <div class="col-xxl-7 col-md-9">
+                <div class="row justify-content-md-end gx-3">
+                  <div class="col-sm-3 col-lg-4">
+                    <select class="form-select bg-light border-light" aria-label="Columns">
+                      <option value="1">Columns</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 col-lg-7">
+                    <div class="input-group my-sm-0 my-2">
+                      <span class="input-group-text bg-light border-light" id="search-icon"><i
+                          class="fa-solid fa-sm fa-magnifying-glass"></i></span>
+                      <input type="text" class="form-control bg-light border-light" placeholder="Search"
+                        aria-label="Search" aria-describedby="search-icon">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-1">
+            <div class="dataTable--custom">
+              <table id="campStaffListing" class="table w-100">
+                <thead>
+                  <tr>
+                    <th>Status</th>
+                    <th>Date & Time</th>
+                    <th>Type</th>
+                    <th class="text-center">Created</th>
+                    <th class="text-center">Updated</th>
+                    <th class="text-center">Skipped</th>
+                    <th class="text-center">Failed</th>
+                    <th class="text-center">Deleted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="text-danger ff-primary fw-medium"> - Pending</span>
+                    </td>
+                    <td>
+                      20 days ago
+                    </td>
+                    <td>
+                      BULK UPDATE
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      -/-
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                    <td class="text-center">
+                      0
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- main content end -->
+    </div>
+  </div>
+  <%- include('../partials/footer.ejs'); %>
+ 
+  <script>
+    $(document).ready(function () {
+      $('#campStaffListing').DataTable(
+        {
+          searching: false,
+          "bLengthChange": false,
+          paging: true,
+          "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+          }
+        }
+      );
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<%-include('../partials/head');%>
+<div class="wrapper">
+  <%-include('../partials/header.ejs');%> <%-include('../partials/leftbar');%>
+  <div class="content-wrapper">
+    <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+      <div class="row g-0 justify-content-center">
+        <div class="col-xxl-10 col-xl-11">
+          <div class="card border-0 shadow rounded-5">
+            <div class="card-body p-xl-6 p-md-5 p-4">
+              <h1 class="h2 mb-lg-4 mb-3 pb-xl-2">
+                <%= (user_id!=='' )?'Edit Opportunities':'Add New Opportunities'
+                %>
+              </h1>
+              <% if (message.length> 0) { %>
+              <div class="alert alert-danger"><%= message %></div>
+              <%}%>
+              <!-- main content start -->
+              <form class="row" id="frm" name="frm" method="post" action="/admin/edit-opportunities?id=<%=result.id%>" >
+               
+                <!-- <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="first_name" class="form-label">First Name*</label>
+                    <input type="hidden" name="id" value="<%=result.id%>" />
+                    <input type="text" class="form-control form-control-lg" name="first_name"
+                      placeholder="First Name" value="<%= result.first_name%>" required />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="last_name" class="form-label">Last Name*</label>
+                    <input type="text" class="form-control form-control-lg" name="last_name"
+                      placeholder="Last Name" value="<%= result.last_name%>" required />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="email" class="form-label">Email*</label>
+                    <input type="email" class="form-control form-control-lg" name="email" required
+                      placeholder="Email" value="<%= result.email%>" />
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                    <label for="phone" class="form-label">Phone Number*</label>
+                    <br />
+                    <input id="phone" name="phone_number" class="form-control form-control-lg"
+                      placeholder="Phone Number" value="<%= result.phone_number%>" name=”phone” type='tel'>
+                  </div>
+                  <input type="hidden" name="code" id="countryCode"  value="<%= result.phone_number%>" />
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="address" class="form-label">Address*</label>
+                    <textarea id="address" name="address" type="text" class="form-control form-control-lg"
+                      placeholder="Address" required></textarea>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="city" class="form-label">City </label>
+                      <input type="city" id="city" name="city" class="form-control form-control-lg" required placeholder="city" >
+                    </div>
+                  </div>
+                <div class="col-lg-6">
+                    <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                      <label for="post_code" class="form-label">Post code</label>
+                      <input id="post_code" type="number" name="post_code" class="form-control form-control-lg" placeholder="Post Code" required>
+                    </div>
+                  </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="tags" class="form-label">Tags</label>
+                    <input name="tags" value="<%=result.tags%>" type="text"   class="form-control"    placeholder="Add Tags"  />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="company_name" class="form-label"  >Company Name</label   >
+                    <input  name="companyname"  value="<%=result.company_name%>" type="text"  class="form-control"  placeholder="Company Name" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="state" class="form-label">State <span class="red_star">*</span></label>
+                    <select name="state" id="state" class="form-select form-select-lg mb-3 "   aria-label=".form-select-lg example" required>
+                      <option disabled selected>-Select-</option>
+                        <option>us</option>
+                         
+                    </select>
+                  </div>
+                </div> -->
+                <!-- <div class="col-lg-6" id="agentid_div">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="agentid" class="form-label">Agent ID</label>
+                    <input name="agent_id" id="agent_id" type="text" class="form-control"/>
+                  </div>
+                </div> -->
+                <div class="col-lg-12">
+                  <h4 class="pt-lg-3 pt-2 mb-lg-4 mb-3 pb-md-1">Opportunity Info</h4>
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                     <label for="opportunity_name" class="form-label">Opportunity Name</label>
+                     <input type="hidden" name="id" value="<%=result.id%>" />
+                     <input name="opportunityname" value="<%=result.name%>" type="text" class="form-control" placeholder="Opportunity Name" required/>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="select_pipeline" class="form-label">Select Pipeline</label>
+                    <select name="pipeline" class="form-select" required>
+                      <option disabled selected>-Select-</option>
+                      <option value="1" <% if(result.pipeline == "1"){%> selected <%}%>>One</option>
+                      <option value="2"<% if(result.pipeline == "2"){%> selected <%}%>>Two</option>
+                      <option value="3"<% if(result.pipeline == "3"){%> selected <%}%>>Three</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="select_stage" class="form-label">Select Stage</label>
+                    <select name="selectstage" class="form-select" required>
+                      <option disabled selected>-Select-</option>
+                      <option value="new_opportunities" <% if(result.opp_stage == "new_opportunities"){%> selected <%}%>>New Opportunities</option>
+                      <option value="3 Months"  <% if(result.opp_stage == "3 Months"){%> selected <%}%>>3+ Months</option>
+                      <option value="Follow Up" <% if(result.opp_stage == "Follow Up"){%> selected <%}%>>Follow Up</option>
+                      <option value="Underwriten"  <% if(result.opp_stage == "Underwriten"){%> selected <%}%>>Underwriten</option>
+                      <option value="Deal Started"  <% if(result.opp_stage == "Deal Started"){%> selected <%}%>>Deal Started</option>
+                      <option value="No Opportunities"  <% if(result.opp_stage == "No Opportunities"){%> selected <%}%>>No Opportunities</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="status" class="form-label">Status</label>
+                    <select name="status"  class="form-select" required>
+                      <option selected>-Select-</option>
+                      <option value="1"  <% if(result.status == "1"){%> selected <%}%>>Open</option>
+                      <option value="2"  <% if(result.status == "2"){%> selected <%}%>>Close</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="lead_value" class="form-label">Lead Value</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-white border-end-0" id="dollar-sign">$</span>
+                      <input name="leadvalue" value="<%=result.lead_value%>" type="text" class="form-control border-start-0 ps-0" placeholder="Lead Value" aria-describedby="dollar-sign"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="owner" class="form-label">Owner</label>
+                    <select name="owner" class="form-select" required>
+                      <option disabled selected>-Select-</option>
+                      <option value="Alfred Gardner" <% if(result.owner == "Alfred Gardner"){%> selected <%}%>>Alfred Gardner</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="source" class="form-label">Source</label>
+                    <input name="source" value="<%=result.source%>" type="text" class="form-control" placeholder="Source"/>
+                  </div>
+                </div>
+                <div class="col-lg-12 text-sm-end">
+                    <ul class="list-inline mb-0 mt-md-5 mt-xxl-6 mt-4 pt-1 pt-xl-2">
+                      <li class="list-inline-item me-xl-3">
+                        <a href="/admin/opportunities"><button type="button" class="btn btn-lg btn-outline-danger btn-small"  data-bs-dismiss="modal" aria-label="Close">Cancel</button></a>
+                      </li>
+                      <li class="list-inline-item">                   
+                        <button type="submit" name="submit" class="btn btn-lg btn-primary btn-small">  <%= (user_id!=='' )?'Update':'Add' %></button>
+                      </li>
+                    </ul>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- main content end -->
+  </div>
+</div>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script>
+  $(document).ready(function () {
+
+    var input = $("#phone");
+    geoIpLookup = function (callback) {
+      $.get('https://ipinfo.io', function () {
+      }, "jsonp").always(function (resp) {
+        var countryCode = (resp && resp.country) ? resp.country : "";
+        callback(countryCode);
+      });
+    },
+      geoIpLookup((countryCode) => {
+        input.intlTelInput({ initialCountry: countryCode.toLowerCase(), separateDialCode: true });
+      })
+
+    input.on("countrychange", function () {
+      console.log('dialCode ', input.intlTelInput("getSelectedCountryData").dialCode)
+      console.log('countryCode ', input.intlTelInput("getSelectedCountryData").iso2)
+      console.log('phoneNumber ', input.val())
+    });
+    var fullContact = "+" + input.intlTelInput("getSelectedCountryData").dialCode + " " + input.val();
+  });
+    const phoneNo = () => {
+      input.intlTelInput("setCountry", "gb");
+      input.intlTelInput("setNumber", "+447986129475");
+    }
+    // Onload Set Country Code
+    if (document.querySelectorAll('#phone').length > 0) {
+      document.querySelector('#phone').addEventListener('focus', () => {
+        var code = document.querySelector('.selected-dial-code').textContent;
+        var inputcode = document.querySelector('#phone').value;
+        document.querySelector('#countryCode').value = code + ' ' + inputcode;
+      })
+
+      document.querySelector('#phone').addEventListener('keyup', () => {
+        var code = document.querySelector('.selected-dial-code').textContent;
+        var inputcode = document.querySelector('#phone').value;
+        document.querySelector('#countryCode').value = code + ' ' + inputcode;
+      })
+    }
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+        $("#frm").validate();
+      });
+
+</script>
+
+<%- include('../partials/footer.ejs'); %>
+</body>
+</html>

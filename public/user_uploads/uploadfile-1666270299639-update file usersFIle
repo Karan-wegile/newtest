@@ -1,0 +1,86 @@
+================
+users.ejs
+================
+
+if (document.querySelectorAll('.tab-btnContact').length > 0) {
+  document.querySelectorAll('.tab-btnContact').forEach(item => {
+    item.addEventListener('click', function () {
+      if (document.querySelector('.checkUnchecked').checked) {
+        document.querySelector('.checkUnchecked').click();
+        document.querySelectorAll('.tableContentTab .allCheck').forEach(item => {
+          item.checked = false;
+        })
+      }
+    })
+  })
+}
+
+
+if (document.querySelectorAll('.topButtonIcon').length > 0) {
+  document.querySelectorAll('.topButtonIcon').forEach(item => {
+    item.addEventListener('click', function () {
+      var idArr = []
+      var getAtt = item.getAttribute('data-cust');
+      document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+        if (item.checked) {
+          var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+          idArr.push(idData);
+        }
+      })
+      contentAction(getAtt, idArr);
+    });
+  })
+}
+        
+                
+function usersAction(getAtt, idArr) {
+  var data = JSON.stringify({
+    "type": getAtt,
+    "data": idArr
+  });
+
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+      window.location.href = "/admin/contacts"
+    }
+  });
+
+  xhr.open("POST", "/admin/contact/users-action");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(data);
+}
+       
+
+================================
+router.js
+===============================
+app.post('/admin/contact/users-action', isAdminLoggedIn, require('../controllers/admin/contact').usersAction);
+
+
+=======================
+users.js
+=======================
+ contactAction: async function (req, res, next) {
+	const { type, data } = req.body;
+	if (type == 'assigned') {
+	    console.log(data, "assigned");
+	} else if (type == 'DND') {
+	    data.forEach(item => {
+		let q = `UPDATE contacts SET contact_type = '2' WHERE id = ${item}`;
+		appModel.query(q, function (err, rows) {
+		    return next();
+		});
+	    })
+	} else if (type == "delete") {
+	    data.forEach(item => {
+		let q = `DELETE FROM contacts WHERE id= ${item}`;
+		appModel.query(q, function (err, rows) {
+		    return next();
+		});
+	    })
+	}
+}
+ 

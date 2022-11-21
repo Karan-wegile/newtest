@@ -1,0 +1,89 @@
+<%-include('../partials/head');%>
+<div class="wrapper">
+  <%-include('../partials/header.ejs');%>
+  <%-include('../partials/leftbar');%>
+  <div class="content-wrapper">
+    <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+      <div class="row g-0 justify-content-center">
+        <div class="col-xxl-10 col-xl-11">
+          <div class="card border-0 shadow rounded-5">
+            <div class="card-body p-xl-6 p-md-5 p-4">
+              <h1 class="h2 mb-lg-4 mb-3 pb-xl-2">
+                <%= (user_id!=='' )?'Edit Message':'Add New Message' %>
+              </h1>
+              <% if (message.length> 0) { %>
+              <div class="alert alert-danger"><%= message %></div>
+              <%}%>
+              <!-- main content start -->
+              <form class="row gx-xxl-4" id="frm" name="frm"  method="post" action="/admin/setup/edit-messages/<% if(user_id) { %><%= user_id %> <% }else{ %><%=result.id%><%} %>">
+                <div class="col-lg-7">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="opportunities_stage" class="form-label">Response Type</label>
+                    <select class="form-select form-select-lg mb-3" name="opportunities" required>
+                      <option disabled <%= (user_id!=='' )? '' : 'selected' %>>Select your Response Type</option>
+                      <option value="First Response" <% if(result.opportunities == "First Response"){%> selected <%}%>>First Response</option>
+                      <option value="Second Response" <% if(result.opportunities == "Second Response"){%> selected <%}%>>Second Response</option>
+                      <option value="Regular Response" <% if(result.opportunities == "Regular Response"){%> selected <%}%>>Regular Response</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="message_type" class="form-label">Message Type</label>
+                      <input type="text" class="form-control form-control-lg" name="message_type" placeholder="Enter Message Type" value="<%= result.message_type %>" required />
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="mb-3 mb-xl-4 pb-md-2">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea name="message" class="form-control form-control-lg" placeholder="Enter here" required rows="6"><% if(user_id){%><%= result.message %> <%}%></textarea>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 text-sm-end">
+                  <ul class="list-inline mb-0 mt-md-4 mt-3 pt-1 pt-xl-2">
+                    <li class="list-inline-item me-xl-3">
+                      <a href="/admin/setup/messages"
+                        ><button
+                          type="button"
+                          class="btn btn-lg btn-outline-danger btn-small"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          Cancel
+                        </button></a
+                      >
+                    </li>
+                    <li class="list-inline-item">
+                 
+                      <button type="submit" name="submit" class="btn btn-lg btn-primary btn-small">  <%= (user_id!=='' )?'Update':'Add' %></button>
+                    </li>
+                  </ul>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- main content end -->
+  </div>
+</div>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+
+<script type="text/javascript">
+  function goBack() {
+    location.href = "/admin/messages";
+    return false;
+  }
+
+  $(document).ready(function () {
+    $("#frm").validate();
+  });
+
+  function submitlogin() {
+    jQuery("#frm").submit();
+  }
+</script>
+
+<%- include('../partials/footer.ejs'); %>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<%- include('../partials/head');%>
+
+  <body>
+    <div class="wrapper">
+
+      <%- include('../partials/leftbar');%>
+        <div class="content-wrapper">
+          <!-- Header start -->
+          <%- include('../partials/header.ejs'); %>
+            <!-- Header end -->
+            <!-- main content end -->
+            <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+              <div class="row g-0 justify-content-center">
+                <div class="col-xxl-10 col-xl-11">
+                  <div class="card border-0 shadow rounded-5">
+                    <div class="card-body p-xl-6 p-md-5 p-4">
+                      <h1 class="h2 mb-lg-4 mb-3 pb-xl-2">
+                        <%= (user_id!=='' )?'Edit Contact':'Add Contact' %>
+                      </h1>
+                      <% if (message.length> 0) { %>
+                        <div class="alert alert-danger">
+                          <%= message %>
+                        </div>
+                        <% } %>
+                          <form class="row gx-xxl-5 gx-xl-4" id="frm"
+                            action="/admin/contacts/edit-contact/<% if(user_id) { %><%=user_id %><% }else{ %><%= contactData.id %><%} %> "
+                            method="post">
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="first_name" class="form-label">First Name <span
+                                        style="color: red;">*</span></label>
+                                    <input type="text" id="first_name" name="first_name"
+                                      class="form-control form-control-lg" placeholder="First Name"
+                                      value="<%= contactData.first_name %>" required>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="last_name" class="form-label">Last Name <span
+                                        style="color: red;">*</span></label>
+                                    <input type="text" id="last_name" name="last_name"
+                                      class="form-control form-control-lg" placeholder="Last Name"
+                                      value="<%= contactData.last_name %>" required>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="email" class="form-label">Email <span
+                                        style="color: red;">*</span></label>
+                                    <input type="<%= (user_id!=='' )?'hidden':'email' %>" id="email" name="email"
+                                      class="form-control form-control-lg" required placeholder="Email"
+                                      value="<%= contactData.email %>">
+
+                                    <% if(user_id ){ %>
+                                      <input type="text" class="form-control form-control-lg"
+                                        value="<%= contactData.email %>" disabled>
+                                      <% } %>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                                    <label for="phone" class="form-label">Phone Number <span
+                                        style="color: red;">*</span></label>
+                                    <br />
+                                    <input id="phone" name="phone_number" class="form-control form-control-lg"
+                                      placeholder="Phone Number" name=”phone” type='tel'
+                                      value="<%= contactData.phone_number %>" required>
+                                  </div>
+                                  <input type="hidden" name="countryCode" id="countryCode" required>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="stage" class="form-label">Stage <span
+                                        style="color: red;">*</span></label>
+                                    <select id="stage" name="stage" class="form-select form-control form-control-lg">
+                                      <option value="lead" selected> Lead </option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                                    <label for="is_contacted" class="form-label">Is Contacted <span
+                                        style="color: red;">*</span></label>
+                                    <select id="is_contacted" name="is_contacted"
+                                      class="form-select form-control form-control-lg" placeholder="Is Contacted"
+                                      required>
+                                      <option disabled <%=(user_id!=='' )? '' : 'selected' %> > -Select- </option>
+                                      <option value="Yes" <% if(contactData.is_contacted=='Yes' ) {%>selected<%}%>> Yes
+                                      </option>
+                                      <option value="No" <% if(contactData.is_contacted=='No' ) {%>selected<%}%>> No
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="listing_price" class="form-label">Listing Price <span
+                                        style="color: red;">*</span></label>
+                                    <input type="number" id="listing_price" name="listing_price"
+                                      class="form-control form-control-lg" required placeholder="Listing Price"
+                                      value="<%= contactData.listing_price %>">
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="campaing" class="form-label">Campaing Name <span
+                                        style="color: red;">*</span></label>
+                                    <select id="campaing" name="campaing"
+                                      class="form-select form-control form-control-lg" placeholder="Campaing" required>
+                                      <option disabled <%=(user_id!=='' )? '' : 'selected' %> >-Select-</option>
+                                      <% for(var i=0; i < camp.length; i++){ if(camp[i]['status'] !='0' ){ %>
+                                        <option class="optionMargin" value="<%= camp[i]['campaign_name']%>" <%
+                                          if(contactData.campaign==camp[i]['campaign_name']) {%> selected <% } %>>
+                                            <%= camp[i]['campaign_name']%>
+                                        </option>
+                                        <% }else{ %>
+                                          <option class="optionMargin" value="<%= camp[i]['campaign_name']%>" disabled
+                                            hidden>
+                                            <%= camp[i]['campaign_name']%>
+                                          </option>
+                                          <%}} %>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="address" class="form-label">Address <span
+                                        style="color: red;">*</span></label>
+                                    <textarea id="address" name="address" type="text"
+                                      class="form-control form-control-lg" placeholder="Address"
+                                      required><%= contactData.address %></textarea>
+                                  </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="state" class="form-label">State <span
+                                        style="color: red;">*</span></label>
+                                    <select id="state" name="state"
+                                      class="form-select form-control form-control-lg selectState" required>
+                                      <% if(user_id!=='' ){%>
+                                        <option>-Select-</option>
+                                        <% }else{ %>
+                                          <option disabled selected>-Select-</option>
+                                          <% }%>
+                                            <% for(var i=0; i < result.length; i++) { %>
+                                              <option value="<%= result[i]['abbrev'] %>" <%
+                                                if(contactData.state==result[i]['abbrev']){ %>selected<% } %>>
+                                                  <%= result[i]['name'] %> &nbsp;(<%= result[i]['abbrev'] %>)
+                                              </option>
+                                              <% } %>
+                                    </select>
+                                  </div>
+
+                                  <input type="hidden" id="mutiState" name="mutiState"
+                                    class="form-control form-control-lg getallarraycontent"
+                                    value="<%= contactData.state %>">
+
+                                  <div class="mb-3 mb-xl-4 pb-md-2 selectContentData" hidden>
+                                    <%if(user_id!=='' ){%>
+                                      <div class="btn bg-light statebuttonName">
+                                        <%= contactData.state %><span class="deletethisState"><i
+                                              class="fa-solid fa-circle-xmark"></i></span>
+                                      </div>
+                                      <% } %>
+                                        </h1>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="city" class="form-label">City <span style="color: red;">*</span></label>
+                                    <input type="city" id="city" name="city" class="form-control form-control-lg"
+                                      required placeholder="city" value="<%= contactData.city %>">
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                                    <label for="post_code" class="form-label">Post code <span
+                                        style="color: red;">*</span></label>
+                                    <input id="post_code" type="number" name="post_code"
+                                      class="form-control form-control-lg" placeholder="Post Code"
+                                      value="<%= contactData.post_code %>" required>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="mb-3 mb-xl-4 pb-md-2 contactform">
+                                    <label for="tags" class="form-label">
+                                      <%= (user_id) ? "Add" : "Select" %> Tags
+                                    </label>
+                                    <select id="tags" name="tags"
+                                      class="form-select form-control form-control-lg selectTags">
+                                      <option selected %> >-Select-</option>
+                                      <% for(var i=0; i < tags.length; i++){ if(tags[i]['status'] !='0' ){ %>
+                                        <option class="optionMargin" value="<%= tags[i]['name']%>">
+                                          <%= tags[i]['name']%>
+                                        </option>
+                                        <% }else{ %>
+                                          <option class="optionMargin" value="<%= tags[i]['name']%>" disabled hidden>
+                                            <%= tags[i]['name']%>
+                                          </option>
+                                          <%}} %>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <label for="tags" class="form-label">Tags Lists</label>
+                                  <input type="hidden" id="mutitags" name="mutitags"
+                                    class="form-control form-control-lg getallarraycontentTags"
+                                    value="<%= contactData.tags %>">
+
+
+                                  <div class="mb-3 mb-xl-4 pb-md-2 selectContentDataTags">
+                                    <%if(user_id!=='' ){%>
+                                      <% var Data=contactData.tags; var splitComa=Data.split(',');
+                                        splitComa.forEach(item=> {
+                                        if(item){
+                                        %>
+                                        <div class="btn bg-light tagsbuttonName" style="margin: 5px 6px">
+                                          <%= item %>
+                                            <span class="deletethisTags" style="color: red;"> &nbsp;<i
+                                                class="fa-solid fa-circle-xmark"></i></span>
+                                        </div>
+                                        <% } })%>
+
+                                          <% } %>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              <div class="col-lg-12">
+                                <div class="mb-3 mb-xl-4 pb-md-2">
+                                  <label for="message" class="form-label">Message</label>
+                                  <textarea cols="10" rows="10" id="message" name="message" type="text"
+                                    class="form-control form-control-lg"
+                                    placeholder="Message"><%= contactData.message %></textarea>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 text-sm-end">
+                              <ul class="list-inline mb-0 mt-lg-4 mt-3 pt-xl-2">
+                                <li class="list-inline-item me-xl-3">
+                                  <a href="/admin/contacts" type="button"
+                                    class="btn btn-lg btn-outline-danger btn-small">Cancel</a>
+                                </li>
+                                <li class="list-inline-item">
+                                  <input type="hidden" name="submitform" value="submitformfile" />
+
+                                  <button type="submit" name="submit" class="btn btn-lg btn-primary btn-small">
+                                    <%= (user_id!=='' )?'Update':'Add' %>
+                                  </button>
+                                </li>
+                              </ul>
+                            </div>
+                          </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript">
+      function goBack() {
+        location.href = "/admin/admin-users";
+        return false;
+      }
+      $(document).ready(function () {
+        $("#frm").validate();
+      });
+      function submitlogin() {
+        jQuery("#frm").submit();
+      }
+    </script>
+
+    <script>
+      //Multiple State
+      if (document.querySelectorAll('.selectState').length > 0) {
+        let arr = [];
+        document.querySelector('.selectState').addEventListener('change', function () {
+          var gotvalue = this.value;
+          document.querySelectorAll('.selectState option').forEach(item => {
+            if (item.getAttribute('value') == gotvalue) {
+              arr = [];
+              // arr.push(item.textContent)
+              arr.push(item.value)
+              var html = '<div class="btn bg-light statebuttonName">' + item.textContent + ' <span class="deletethisState"><i class="fa-solid fa-circle-xmark"></i></span> </div>'
+              // document.querySelector('.selectContentData').innerHTML += html;
+              document.querySelector('.selectContentData').innerHTML = html;
+            };
+          })
+
+
+          document.querySelector('.getallarraycontent').value = arr;
+        })
+      }
+
+
+
+      // Multiple Tags
+      if (document.querySelectorAll('.selectTags').length > 0) {
+        var arr = []
+        var currTagAvailable = document.querySelector('#mutitags').value;
+        if (currTagAvailable.length > 0) {
+          var splitDataTag = currTagAvailable.split(',');
+          splitDataTag.forEach((item) => {
+            arr.push(item);
+          })
+        }
+        document.querySelector('.selectTags').addEventListener('change', function () {
+          var gotvalue = this.value;
+          document.querySelectorAll('.selectTags option').forEach(item => {
+
+            if (item.getAttribute('value') == gotvalue) {
+              arr.push(item.value)
+              var html = '<div class="btn bg-light tagsbuttonName" style="margin: 5px 6px">' + item.textContent + ' <span class="deletethisTags" style="color: red;"> &nbsp; <i class="fa-solid fa-circle-xmark"></i></span> </div>'
+              document.querySelector('.selectContentDataTags').innerHTML += html;
+            };
+          })
+          console.log(arr);
+
+          crossBtnTag();
+          document.querySelector('.getallarraycontentTags').value = arr;
+        })
+
+        crossBtnTag();
+
+        function crossBtnTag() {
+          if (document.querySelectorAll('.tagsbuttonName').length > 0) {
+            document.querySelectorAll('.tagsbuttonName').forEach((item, index) => {
+              item.addEventListener('click', function () {
+                document.querySelectorAll('.tagsbuttonName').forEach((item, index) => {
+                  item.setAttribute('data-count', index);
+                })
+                var count = item.getAttribute('data-count');
+                arr.splice(count, 1);
+                document.querySelector('.getallarraycontentTags').value = arr;
+                item.remove();
+              })
+            })
+          }
+        }
+      }
+    </script>
+    <script>
+      var input = $("#phone");
+      geoIpLookup = function (callback) {
+        $.get('https://ipinfo.io', function () {
+        }, "jsonp").always(function (resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      },
+        geoIpLookup((countryCode) => {
+          input.intlTelInput({ initialCountry: countryCode.toLowerCase(), separateDialCode: true });
+        })
+      input.on("countrychange", function () {
+        console.log('dialCode ', input.intlTelInput("getSelectedCountryData").dialCode)
+        console.log('countryCode ', input.intlTelInput("getSelectedCountryData").iso2)
+        console.log('phoneNumber ', input.val())
+        var fullContact = "+" + input.intlTelInput("getSelectedCountryData").dialCode + " " + input.val();
+        console.log(fullContact);
+      });
+      const phoneNo = () => {
+        input.intlTelInput("setCountry", "gb");
+        input.intlTelInput("setNumber", "+447986129475");
+      }
+
+      // Onload Set Country Code
+      setTimeout(() => {
+        var fullContact = "+" + input.intlTelInput("getSelectedCountryData").dialCode + " " + input.val();
+        document.querySelector('#countryCode').value = fullContact;
+      }, 1000)
+
+      window.onload = function () {
+        setTimeout(() => {
+          var fullContact = "+" + input.intlTelInput("getSelectedCountryData").dialCode + " " + input.val();
+          document.querySelector('#countryCode').value = fullContact;
+        }, 1000)
+      }
+
+      document.querySelector('#phone').addEventListener('focus', () => {
+        var code = document.querySelector('.selected-dial-code').textContent;
+        var inputcode = document.querySelector('#phone').value;
+        document.querySelector('#countryCode').value = code + ' ' + inputcode;
+      })
+
+      document.querySelector('#phone').addEventListener('keyup', () => {
+        var code = document.querySelector('.selected-dial-code').textContent;
+        var inputcode = document.querySelector('#phone').value;
+        document.querySelector('#countryCode').value = code + ' ' + inputcode;
+      })
+    </script>
+    <%- include('../partials/footer.ejs'); %>
+  </body>
+
+  </html>

@@ -1,0 +1,18 @@
+// Transition
+@mixin transition($transition) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+//gradient mixin
+$list1: $primary, tint-color($primary, 20%);
+;
+
+@mixin gradientCustom($direction, $list) { 
+  background-image: -webkit-linear-gradient($direction, $list);
+  background-image: -moz-linear-gradient($direction, $list);
+  background-image: -o-linear-gradient($direction, $list);
+  background-image: linear-gradient($direction, $list);  
+}

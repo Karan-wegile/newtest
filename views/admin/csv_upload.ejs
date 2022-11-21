@@ -1,0 +1,224 @@
+<%- include('../partials/head');%>
+
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar start -->
+      <%- include('../partials/leftbar');%>
+        <!-- Sidebar end -->
+        <div class="content-wrapper">
+          <!-- Header start -->
+          <%- include('../partials/header.ejs'); %>
+            <!-- Header end -->
+
+            <!-- main content start -->
+            <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+              <div class="row g-0 justify-content-center">
+                <div class="col-xxl-10 col-xl-11">
+                  <div class="card border-0 shadow rounded-5">
+                    <div class="card-body p-xl-6 p-md-5 p-4">
+                      <h1 class="h2 mb-lg-4 mb-3 pb-xl-2">Import Contact</h1>
+                      <% if (message.length> 0) { %>
+                        <% if(success){ %>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="alert alert-success">
+                                <%= message %>
+                              </div>
+                            </div>
+                            <% if (duplicateData > 0) { %>
+                            <div class="col-sm-12">
+                              <a href="/css/duplicate.csv" class="btn btn-warning text-link text-decoration-underline">Download Duplicate
+                                Entries 
+                              </a>
+                            </div>
+                            <% } %>
+                          </div>
+
+                          <% }else{ %>
+                            <div class="alert alert-danger">
+                              <%= message %>
+                            </div>
+                            <% } %>
+                              <% } %>
+                                <br />
+                                <form class="row gx-xxl-5 gx-xl-4" name="UploadCSV" id="frm"
+                                  action="/admin/contacts/uploadcsvdata" method="post" enctype="multipart/form-data">
+                                  <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                      <label for="campaing" class="form-label">Campaing Name</label>
+                                      <select id="campaing" name="campaing"
+                                        class="form-select form-control form-control-lg" placeholder="Campaing">
+                                        <option value="C_NOT_SELECTED" selected >-Select-</option>
+                                        <% for(var i=0; i < result.length; i++){ if(result[i]['status'] !='0' ){ %>
+                                          <option class="optionMargin">
+                                            <%= result[i]['campaign_name']%>
+                                          </option>
+                                          <% }else{ %>
+                                            <option class="optionMargin" value="<%= result[i]['campaign_name']%>"
+                                              disabled hidden>
+                                              <%= result[i]['campaign_name']%>
+                                            </option>
+                                            <%}} %>
+                                      </select>
+                                    </div>
+                                    <div class="mb-3 mb-xl-4 pb-md-2 checksinglebox">
+                                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                                        <input id="unassigned" class="form-check-input" name="select_type"
+                                          type="checkbox" value="unassigned" checked>
+                                        <label for="unassigned" class="form-check-label ms-1">
+                                          Do Not Assigned
+                                        </label>
+                                      </div>
+                                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                                        <input id="AA" class="form-check-input" name="select_type" type="checkbox"
+                                          value="AA">
+                                        <label for="AA" class="form-check-label ms-1">
+                                          Assigned Auto
+                                        </label>
+                                      </div>
+                                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                                        <input id="AM" class="form-check-input" name="select_type" type="checkbox"
+                                          value="AM">
+                                        <label for="AM" class="form-check-label ms-1">
+                                          Assigned Manual
+                                        </label>
+                                      </div>
+                                      <div class="mb-3 mb-xl-4 pb-md-2 showOption" style="display: none;">
+                                        <br />
+                                        <div class="input-group my-sm-0 my-2">
+                                          <span for="amdata" class="input-group-text bg-light border-end-0 pe-2"><i
+                                              class="fa-solid fa-sm fa-magnifying-glass pe-2"></i></span>
+                                          <select id="amdata" name="amdata"
+                                            class="form-select bg-light form-select-lg border-start-0 ps-1">
+                                            <option value="AM_NOT_SELECTED" selected>-Select-</option>
+                                            <% for(var i=0; i < resultUser.length; i++){ %>
+                                              <option value="<%= resultUser[i]['id'] %>">
+                                                <%= resultUser[i]['first_name'] %>
+                                                  <%= resultUser[i]['last_name'] %>
+                                              </option>
+                                              <% } %>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <h5 class="mb-3">Upload File</h5>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" id="crmcsv" name="csvoption"
+                                        value="crmcsv">
+                                      <label class="form-check-label" for="crmcsv">CRM CSV</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" id="zilocsv" name="csvoption"
+                                        value="zilocsv">
+                                      <label class="form-check-label" for="zilocsv">Zillow CSV</label>
+                                    </div>
+
+                                    <div
+                                      class="bg-light bg-opacity-50 border-2 border border-dotted py-5 py-xl-6 px-2 position-relative text-center rounded-3 my-lg-4 my-3">
+                                      <input type="file" id="fileupload"
+                                        class="position-absolute cursor-pe end-0 start-0 top-0 bottom-0 h-100 w-100 opacity-0 z-index-1"
+                                        name="uploadfile" accept='csv' />
+                                      <i class="fa-solid fa-cloud-arrow-up fa-3x text-opacity-25 text-dark"></i>
+                                      <h6 class="text-opacity-50 text-dark fw-bold my-2">DRAG &amp; DROP</h6>
+                                      <label class="mb-0 form-label fw-normal text-opacity-50 text-dark">your
+                                        files to
+                                        assets, or
+                                        <span class="fw-medium text-primary">browse</span>
+                                      </label>
+                                    </div>
+                                    <div class="mb-3 class bg-light p-3 rounded-3 mt-4" id="fileupldata" hidden>
+                                      <div class="d-flex align-items-center">
+                                        <span class="text-success me-2"><i class="fa-solid fa-file"></i></span>
+                                        <input class="bg-transparent py-0 border-0 form-control" type="text"
+                                          id="fileUpladedname" readonly>
+                                        <span class="trash_iconGap ms-2"><i
+                                            class="fa-solid text-danger fa-trash"></i></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="text-sm-end mt-3">
+                                    <a href="/css/CRM.csv" class="text-link text-decoration-underline">CRM Sample</a>
+                                    &nbsp;
+                                    <a href="/css/zillow.csv" class="text-link text-decoration-underline">Zillow
+                                      Sample</a>
+                                    <ul class="list-inline mb-0 mt-lg-4 mt-3 pt-xl-2">
+                                      <li class="list-inline-item me-xl-3">
+                                        <a href="/admin/contacts"
+                                          class="btn btn-lg btn-outline-danger btn-small">Cancel</a>
+                                      </li>
+                                      <li class="list-inline-item">
+                                        <button type="submit" class="btn btn-lg btn-primary btn-small">Add</button>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add tags modal end -->
+    <%- include('../partials/footer.ejs'); %>
+      <script type="text/javascript" src="/js/jquery.validate.js"></script>
+      <script>
+        $(document).ready(function () {
+          $("#frm").validate();
+        });
+        function submitlogin() {
+          jQuery("#frm").submit();
+        }
+      </script>
+      <script>
+        if (document.querySelectorAll('.checksinglebox .form-check input.form-check-input').length > 0) {
+          document.querySelectorAll('.checksinglebox .form-check input.form-check-input').forEach(item => {
+            item.addEventListener('click', function () {
+              document.querySelectorAll('.checksinglebox .form-check input.form-check-input').forEach(item => {
+                item.checked = false;
+              })
+              item.checked = true;
+              if (item.value == 'AM') {
+                document.querySelector('.showOption').style.display = 'block';
+              } else {
+                document.querySelector('.showOption').style.display = 'none'
+              };
+            })
+          })
+        }
+
+
+        document.getElementById("fileupload").addEventListener("change", function () {
+          var file = document.forms['UploadCSV']['uploadfile'].files[0].name;
+          document.querySelector('#fileupldata').removeAttribute('hidden');
+          document.querySelector('#fileUpladedname').value = file;
+          this.parentElement.style.display = "none";
+        });
+
+        if (document.querySelectorAll('.trash_iconGap').length > 0) {
+          document.querySelector('.trash_iconGap').addEventListener('click', function () {
+            document.querySelector('#fileUpladedname').value = "";
+            this.parentElement.parentElement.setAttribute('hidden', '');
+            console.log(this.parentElement);
+            document.querySelector('#fileupload').value = "";
+            document.getElementById("fileupload").parentElement.style.display = "block";
+          })
+        }
+		
+		 $("input[name='select_type']").click(function(){
+            if ($(this).val() == "AA")
+            {
+               $("form[name='UploadCSV']").attr("action","/admin/contacts/checkapp");
+            }else{
+              $("form[name='UploadCSV']").attr("action","/admin/contacts/uploadcsvdata");
+            }
+        });
+
+      </script>
+
+  </body>
+
+  </html>

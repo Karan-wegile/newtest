@@ -1,0 +1,144 @@
+<%- include('../partials/head');%>
+<div class="wrapper">
+    <!-- Header start -->
+    <%- include('../partials/header.ejs'); %>
+    <!-- Header end -->
+    <%- include('../partials/leftbar');%>
+    <div class="content-wrapper">
+        <!-- main content start -->
+        <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+            <div class="row g-0 justify-content-center">
+                <div class="col-xxl-10 col-xl-11">
+                    <div class="card border-0 shadow rounded-5">
+                        <div class="card-body p-xl-6 p-md-5 p-4">
+                            <h1 class="h2 mb-lg-4 mb-3 pb-xl-2"><%= (admin_id!=='')?'Edit Admin User':'Add New Admin User' %></h1>
+                            <% if (message.length> 0) { %>
+                            <div class="alert alert-danger">
+                                <%= message %>
+                            </div>
+                            <%}%>
+                            <form class="row" id="frm" action="" method="post">
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="full_name" class="form-label">First Name <span class="red_star">*</span></label>
+                                        <input type="text" class="form-control form-control-lg" name="first_name" placeholder="First Name"  value="<%= result.first_name %>"  required />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="full_name" class="form-label">Last Name <span class="red_star">*</span></label>
+                                        <input type="text" class="form-control form-control-lg" name="last_name" placeholder="Last Name" required  value="<%= result.last_name %>" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="email" class="form-label">Email <span class="red_star">*</span></label>
+                                        <input type="email" class="form-control form-control-lg" name="email" required placeholder="Email" value="<%= result.email %>" />
+                                    </div>
+                                </div>
+                                 <%             
+                                  if(admin_id!=='') { 
+                                  }
+                                  else {
+                                  %>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="password" class="form-label">Password: <span class="red_star">*</span></label>
+                                        <input class="form-control form-control-lg" name="password" id="password" placeholder="Password" type="password" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="nmls" class="form-label">Re Password <span class="red_star">*</span></label>
+                                        <input type="password" class="form-control form-control-lg" name="password_again" id="password_again" placeholder="Password" required>
+                                    </div>
+                                </div>
+                                <%
+                                }
+                                %>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="phone" class="form-label">Phone Number <span class="red_star">*</span></label>
+                                        <input id="phone" class="form-control form-control-lg" name="phone_number" placeholder="Phone Number" type='tel' value="<%= result.phone_number %>"  required />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="nmls" class="form-label">Role <span class="red_star">*</span></label>
+                                        <select name="role" id="role" class="form-control required">
+                                            <option value="0" selected>--Select role--</option>
+                                            <option value="1" <%= (result.role=='1')?'selected':'' %>>Main Admin</option>
+                                            <option value="2" <%= (result.role=='2')?'selected':'' %>>Staff</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3 mb-xl-4 pb-md-2">
+                                        <label for="nmls" class="form-label">Status <span class="red_star">*</span></label>
+                                        <select name="status" id="status" class="form-control required">
+                                            <option value="0" selected>--Select Status--</option>
+                                            <option value="1" <%= (result.status=='1')?'selected':'' %>>Active</option>
+                                            <option value="0" <%= (result.status=='0')?'selected':'' %>>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 text-sm-end">
+                                    <ul class="list-inline mb-0 mt-lg-4 mt-3 pt-xl-2">
+                                        <li class="list-inline-item me-xl-3">
+                                            <a href="/admin/admin-users">
+                                                <button type="button" class="btn btn-lg btn-outline-danger btn-small" data-bs-dismiss="modal" aria-label="Close">Cancel</button></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <input type="hidden" name="admin_user" value="add_update" />
+                                            <button type="submit" class="btn btn-lg btn-primary btn-small">Add</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- main content end -->
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript">
+function goBack() {
+    location.href = "/admin/admin-users";
+    return false;
+}
+$(document).ready(function() {
+    $("#frm").validate({
+        rules: {
+            first_name: {
+                required: true,
+                minlength: 3
+            },
+            last_name: {
+                required: true,
+                minlength: 4
+            }
+            <%
+            if(admin_id!=='') { 
+            }
+            else {
+            %>,
+            password: {
+                required: true,
+                minlength: 4
+            },
+            password_again: {
+                equalTo: "#password"
+            }
+            <%
+            }
+            %>
+        }
+    });
+});
+</script>
+<%- include('../partials/footer.ejs'); %>
+  </body>
+</html>

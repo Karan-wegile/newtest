@@ -1,0 +1,172 @@
+<%- include('../partials/head');%>
+<div class="wrapper">
+  <!-- Header start -->
+  <%- include('../partials/header.ejs'); %>
+  <!-- Header end -->
+  <!-- Sidebar start -->
+  <%- include('../partials/leftbar');%>
+  <!-- Sidebar end -->
+  <div class="content-wrapper">
+    <!-- main content start -->
+    <% if (errors.length > 0) { %>
+    <div class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+      <div class="row">
+        <div class="col-xxl-7">
+          <div class="alert alert-danger" id="error" style="display: none;"><%= errors %></div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if (success.length > 0) { %>
+    <div class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+      <div class="row">
+        <div class="col-xxl-7">
+          <div class="alert alert-success" id="success" style="display: none;"><%= success %></div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+      <div class="row g-0 justify-content-center">
+        <div class="col-xxl-10 col-xl-11">
+          <div class="card border-0 shadow rounded-5">
+            <div class="card-body p-xl-6 p-md-5 p-4">
+              <h1 class="h2 mb-lg-4 mb-xl-5 mb-xxl-6 mb-3 pb-xl-2">Add Bulk</h1>
+              <form
+              id="frm"
+             name="frm"
+                method="POST"
+                action="/admin/add-bulk"
+                enctype="multipart/form-data"
+              >
+                <h5 class="mb-3">Upload CSV File</h5>
+                <div
+                  class="bg-light bg-opacity-50 border-2 border border-dotted py-5 px-2 position-relative text-center rounded-4"
+                >
+                  <input
+                    type="file"
+                    name="uploadfile"
+                    id="uploadFile"
+                    class="position-absolute cursor-pe end-0 start-0 top-0 bottom-0 h-100 w-100 opacity-0 z-index-1"
+                  required />
+                  <i
+                    class="fa-solid fa-cloud-arrow-up fa-3x text-opacity-25 text-dark"
+                  ></i>
+                  <h6 class="text-opacity-50 text-dark fw-bold my-2">
+                    DRAG &amp; DROP
+                  </h6>
+                  <label
+                    class="mb-0 form-label fw-normal text-opacity-50 text-dark"
+                    >your files to assets, or
+                    <span class="fw-medium text-link">browse</span></label
+                  >
+                </div>
+                <div class="text-end mt-3 mb-4">
+                  <a href="/css/sample.csv" class="text-link text-decoration-underline"
+                    >Download Sample</a
+                  >
+                </div>
+                <ul class="list-unstyled" id="liststyle">
+                  <li class="mb-3">
+                    <div
+                      class="bg-light d-inline-flex align-items-center rounded-3 px-3 py-2"
+                    >
+                      <i
+                        class="fa-solid fa-file-lines me-2 me-xl-3 text-blue fa-lg"
+                      ></i>
+                      <span id="output" class="fw-medium fs-14"></span>
+                      <button type="button" class="btn" id="close">
+                        <i
+                          class="fa-solid fa-circle-xmark text-danger ms-2 ms-xl-3"
+                        ></i>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+                <div class="text-sm-end">
+                  <ul
+                    class="list-inline mb-0 mt-xl-5 mt-xxl-6 mt-4 pt-1 pt-xl-2"
+                  >
+                    <li class="list-inline-item me-xl-3">
+                      <a href="/admin/users"
+                        ><button
+                          type="button"
+                          class="btn btn-lg btn-outline-danger btn-small"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          Cancel
+                        </button></a
+                      >
+                    </li>
+                    <li class="list-inline-item">
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-primary btn-small"
+                      >
+                        Upload
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- main content end -->
+  </div>
+</div>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<!-- Add tags modal end -->
+
+<script>
+  $(document).ready(function () {
+    $('input[type="file"]').change(function (e) {
+      var fileName = e.target.files[0].name;
+      $("#liststyle").show();
+      $("#output").html(fileName);
+    });
+  });
+  $(document).ready(function () {
+        $("#frm").validate();
+      });
+  $(document).ready(function () {
+    let text = $('#error').html()
+          let successtext = $('#success').html();
+   
+             if (text !== undefined) {
+                Swal.fire({
+                title: text,
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              })
+               
+             }
+             if (successtext !== undefined) {
+                 Swal.fire({
+                  title: successtext,
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                  }
+                })
+          }
+
+
+    $("#liststyle").hide();
+    $("#close").click(function () {
+      $("#liststyle").hide();
+      $("#uploadFile").val("");
+    });
+  });
+</script>
+<%- include('../partials/footer.ejs'); %>
+</body>
+</html>

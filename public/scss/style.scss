@@ -1,0 +1,78 @@
+
+//fonts
+$font-family-base: 'Milliard Book';
+$font-family-primary: 'Milliard';
+$font-weight-medium: 500;
+$font-size-base: 1rem; // Assumes the browser default, typically `16px`
+$font-size-sm: $font-size-base * .875;
+$font-size-12: 0.75rem;
+$font-size-15: 0.938rem;
+$font-size-14: 0.875rem;
+
+//color
+$primary:           #00afd7;
+$secondary:         #82798F;
+$light:             #EDEDED;
+$light-secondary:   #FBFBFB;
+$success:           #40A36A;
+$dark-blue:         #1A427D;
+$info:              #00263E;
+$danger:            #EC533D;
+$warning:           #FFC852;
+
+// Quickly modify global styling by enabling or disabling optional features.
+$enable-negative-margins:     true;
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio:   2.5;
+
+// scss-docs-start spacer-variables-maps
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4.375,
+) ;
+
+// scss-docs-start border-radius-variables
+$border-radius-lg:            .5rem;
+
+// scss-docs-start headings-variables
+$headings-font-family:       $font-family-primary;
+
+// scss-docs-start input-btn-variables
+$input-btn-padding-y:         0.547rem;
+$input-btn-padding-x:         0.75rem;
+$input-btn-font-family:       $font-family-primary;
+$input-btn-font-size:         $font-size-15;
+$input-font-weight:           $font-weight-medium;
+$input-border-radius:         $border-radius-lg;
+$input-btn-padding-y-lg:      .8155rem;
+$input-btn-padding-x-lg:      1.2rem;
+$input-btn-font-size-lg:      $font-size-15;
+
+
+// scss-docs-start form-label-variables
+$form-label-font-family:         $font-family-primary;
+$form-label-font-weight:         $font-weight-medium;
+
+// scss-docs-start btn-variables
+$btn-focus-width:              0;
+$btn-focus-box-shadow:        none;
+$btn-font-family:             $font-family-primary;
+$btn-font-weight:             $font-weight-medium;
+$btn-border-radius:           $border-radius-lg;
+$btn-padding-y-lg:            0.6902rem;
+@import "../scss/boostrap/scss/bootstrap";
+@import "./customMixins";
+@import "./custom";
+
+// Components
+@import "./components/login";
+@import "./components/wrapper";
+

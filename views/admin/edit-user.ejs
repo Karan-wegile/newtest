@@ -1,0 +1,298 @@
+<%-include('../partials/head');%>
+  <div class="wrapper">
+    <%-include('../partials/leftbar');%>
+      <div class="content-wrapper">
+        <%-include('../partials/header.ejs');%>
+          <style type="text/css">
+            .select2-search__field {
+              min-height: 35px !important;
+              padding: 5px 15px !important;
+            }
+          </style>
+          <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+            <div class="row g-0 justify-content-center">
+              <div class="col-xxl-10 col-xl-11">
+                <div class="card border-0 shadow rounded-5">
+                  <div class="card-body p-xl-6 p-md-5 p-4">
+                    <h1 class="h2 mb-lg-4 mb-3 pb-xl-2">
+                      <%= (user_id!=='' )?'Edit Sale Agent':'Add New Sale Agent' %>
+                    </h1>
+                    <% if (message.length> 0) { %>
+                      <div class="alert alert-danger" id="message" style="display: none;">
+                        <%= message %>
+                      </div>
+                      <%}%>
+                        <form class="row" id="frm" name="frm" method="post" action="/admin/edit-user?id=<%=result.id%>" enctype="multipart/form-data">
+                        <div class="col-lg-6">
+                            <div class="col-lg-10">
+                              <div class="mb-3 mb-xl-4 pb-md-2">
+                                <label for="first_name" class="form-label">First Name <span
+                                    class="red_star">*</span></label>
+                                <input type="hidden" name="id" value="<%=result.id%>" />
+                                <input type="text" class="form-control form-control-lg" name="first_name"
+                                  value="<%= result.first_name%>" placeholder="First Name" required />
+                              </div>
+                            </div>
+                            <div class="col-lg-10">
+                              <div class="mb-3 mb-xl-4 pb-md-2">
+                                <label for="last_name" class="form-label">Last Name <span
+                                    class="red_star">*</span></label>
+                                <input type="text" class="form-control form-control-lg" name="last_name"
+                                  value="<%= result.last_name%>" placeholder="Last Name" />
+                              </div>
+                            </div>
+                            <% if (user_id=='' ){%>
+                              <div class="col-lg-10">
+                                <div class="mb-3 mb-xl-4 pb-md-2">
+                                  <label for="email" class="form-label">Email <span class="red_star">*</span></label>
+                                  <input type="email" class="form-control form-control-lg" name="email" required
+                                    value="<%= result.email%>" placeholder="Email" />
+                                </div>
+                              </div>
+                              <%}%>
+                                <div class="col-lg-10">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="phone_number" class="form-label">Phone Number <span
+                                        class="red_star">*</span></label>
+                                    <input class="form-control form-control-lg" name="phone_number"
+                                      value="<%= result.phone_number%>" placeholder="Phone Number" type="tel" id="phone"
+                                      required />
+                                      <input type="hidden" name="code" id="countryCode"  value="<%= result.phone_number%>" />
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-10">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="state" class="form-label">State <span class="red_star">*</span></label>
+                                    <select name="state[]" multiple="multiple" id="mySelect2"
+                                      class="form-select form-select-lg mb-3 js-example-basic-multiple"
+                                      aria-label=".form-select-lg example" required>
+                                      <% if (user_id=='' ){%>
+                                        <% for(var i in states) { %>
+                                          <option value="<%=states[i].abbrev%> ">
+                                            <%=states[i].name%>
+                                          </option>
+                                          <%} %>
+                                            <%} else{%>
+                                              <% for(var i in states) { %>
+                                                <option value="<%=states[i].abbrev %>" <%for(var k in obj3){%>
+                                                  <%=(obj3[k]==states[i].abbrev)?'selected':''%>
+                                                    <%}%> >
+                                                      <%=states[i].name%>
+                                                </option>
+                                                <% } %>
+                                                  <%} %>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-lg-10">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="licence_no" class="form-label">Licence No</label>
+                                    <input type="text" class="form-control form-control-lg" name="licence_no"
+                                      value="<%= result.licence_no%>" placeholder="Licence No" id="licence_no" />
+                                  </div>
+                                </div>
+                                <div class="col-lg-10">
+                                  <div class="mb-3 mb-xl-4 pb-md-2">
+                                    <label for="licence_expire" class="form-label">Licence expire </label>
+                                    <input type="date" class="form-control form-control-lg" name="licence_expire"
+                                      value="<%=result.licence_expire%>" placeholder="Licence Expiry"
+                                      id="licence_expire" />
+                                  </div>
+                                </div>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-12">
+                              <label for="licence_photo" class="form-label">Upload Licence Photo</label>
+                              <div id="uploadlicence" class="bg-light bg-opacity-50 border-2 border border-dotted py-5 py-xl-6 px-2 position-relative text-center rounded-3 mb-4" >
+                              <input type="hidden" value="<%=result.licence_photo%>"  id="updatephoto" name="updatephoto" />
+                              <input class="position-absolute cursor-pe end-0 start-0 top-0 bottom-0 h-100 w-100 opacity-0 z-index-1" type="file" name="licence_photo" accept=".jpg,.jpeg,.png" onchange="loadFile(event)"  placeholder="Licence Photo" id="licence_photo" />
+                              <i class="fa-solid fa-cloud-arrow-up fa-3x text-opacity-25 text-dark"></i>
+                              <h6 class="text-opacity-50 text-dark fw-bold my-2">DRAG &amp; DROP</h6>
+                              <label class="mb-0 form-label fw-normal text-opacity-50 text-dark">your files to assets,  or  <span class="fw-medium text-primary">browse</span>   </label>
+                            </div>
+                            <div id="liststyle" class="mb-4">
+                              <div style="max-width: 18rem;" class="border rounded-3 d-inline-flex p-2 position-relative">
+                                <img id="outputlicence" src='../uploads/<%= result.licence_photo%>' id="licence" class="img-fluid rounded-3">
+                                <button type="button" class="btn btn-link rounded-circle text-decoration-none xs-wh p-0 d-flex align-items-center justify-content-center bg-danger text-white position-absolute z-index-1 top-0 end-0 mt-n3 me-n3" id="close"> x  </button>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <label for="photo" class="form-label">Upload Profile Photo</label>
+                              <div id="profilephoto" class="bg-light bg-opacity-50 border-2 border border-dotted py-5 py-xl-6 px-2 position-relative text-center rounded-3 mb-4" >
+                                <input type="hidden" value="<%=result.photo%>" id="update_p_photo" name="update_p_photo" />
+                                <input  class="position-absolute cursor-pe end-0 start-0 top-0 bottom-0 h-100 w-100 opacity-0 z-index-1"  type="file" name="photo" accept=".jpg,.jpeg,.png" onchange="loadFile1(event)"  placeholder="Photo" id="photo" />
+                                <i class="fa-solid fa-cloud-arrow-up fa-3x text-opacity-25 text-dark"></i>
+                                <h6 class="text-opacity-50 text-dark fw-bold my-2">DRAG &amp; DROP</h6>
+                                <label class="mb-0 form-label fw-normal text-opacity-50 text-dark">your files to assets, or <span class="fw-medium text-primary">browse</span>   </label>
+                              </div>
+                              <div id="liststyle1" class="mb-4">
+                                <div style="max-width: 18rem;" class="border rounded-3 d-inline-flex p-2 position-relative">
+                                    <img id="profileoutput"  src='../uploads/<%= result.photo%>'  class="img-fluid rounded-3">  <button type="button" class="btn btn-link rounded-circle text-decoration-none xs-wh p-0 d-flex align-items-center justify-content-center bg-danger text-white position-absolute z-index-1 top-0 end-0 mt-n3 me-n3" id="close1">  x   </button>
+                                </div>
+                             </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-sm-end">
+                            <ul class="list-inline mb-0 mt-lg-4 mt-3 pt-xl-2">
+                              <li class="list-inline-item me-xl-3">  <a href="/admin/users"><button type="button"  class="btn btn-lg btn-outline-danger btn-small" data-bs-dismiss="modal"  aria-label="Close">Cancel</button></a>
+                              </li>
+                              <li class="list-inline-item"><button type="submit" name="submit"    class="btn btn-lg btn-primary btn-small">  <%= (user_id!=='' )?'Update':'Add' %> </button>
+                              </li>
+                            </ul>
+                        </div>
+                        </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          <!-- main content end -->
+      </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery.validate.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/intlTelInput.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      var input = $("#phone");
+      geoIpLookup = function (callback) {
+        $.get('https://ipinfo.io', function () {
+        }, "jsonp").always(function (resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      },
+        geoIpLookup((countryCode) => {
+          input.intlTelInput({ initialCountry: countryCode.toLowerCase(), separateDialCode: true });
+        })
+
+      input.on("countrychange", function () {
+        console.log('dialCode ', input.intlTelInput("getSelectedCountryData").dialCode)
+        console.log('countryCode ', input.intlTelInput("getSelectedCountryData").iso2)
+        console.log('phoneNumber ', input.val())
+      });
+      var fullContact = "+" + input.intlTelInput("getSelectedCountryData").dialCode + " " + input.val();
+      });
+      const phoneNo = () => {
+        input.intlTelInput("setCountry", "gb");
+        input.intlTelInput("setNumber", "+447986129475");
+      }
+
+      // Onload Set Country Code
+      if (document.querySelectorAll('#phone').length > 0) {
+        document.querySelector('#phone').addEventListener('focus', () => {
+          var code = document.querySelector('.selected-dial-code').textContent;
+          var inputcode = document.querySelector('#phone').value;
+          document.querySelector('#countryCode').value = code + ' ' + inputcode;
+        })
+
+        document.querySelector('#phone').addEventListener('keyup', () => {
+          var code = document.querySelector('.selected-dial-code').textContent;
+          var inputcode = document.querySelector('#phone').value;
+          document.querySelector('#countryCode').value = code + ' ' + inputcode;
+        })
+      }
+  </script>
+  <script type="text/javascript">
+
+    var loadFile = function (event) {
+      var inputval=document.getElementById("licence_photo").value;
+      var imagename= inputval.slice(12);
+      let image = document.getElementById("outputlicence");
+      image.src = URL.createObjectURL(event.target.files[0]);
+      document.getElementById('updatephoto').value=imagename;
+      document.getElementById("uploadlicence").style.display="none";
+      $("#liststyle").show();
+    };
+    var loadFile1 = function (event1) {
+      var inputval=document.getElementById("photo").value;
+      var imagename= inputval.slice(12);
+      let image1 = document.getElementById("profileoutput");
+      image1.src = URL.createObjectURL(event.target.files[0]);
+      document.getElementById('update_p_photo').value=imagename;
+      document.getElementById("profilephoto").style.display="none";
+      $("#liststyle1").show();
+    };
+    function goBack() {
+      location.href = "/admin/admin-users";
+      return false;
+    }
+
+    $(document).ready(function () {
+     let text = $('#message').html()
+      if (text !== undefined) {  Swal.fire({
+                title: text,
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              }) }
+    
+
+var licencephotoexist=document.getElementById('updatephoto').value;
+var profilephotoexist=document.getElementById('update_p_photo').value;
+console.log(profilephotoexist,'profile')
+$("#close").click(function () {
+        $("#liststyle").hide();
+        document.getElementById("uploadlicence").style.display="block";
+        document.getElementById('updatephoto').value='';
+        $("#licence_photo").val("");
+      });
+
+      $("#close1").click(function () {
+        $("#liststyle1").hide();
+        document.getElementById("profilephoto").style.display="block";
+        document.getElementById('update_p_photo').value='';
+        $("#photo").val("");
+      });
+if(licencephotoexist!==''){
+  document.getElementById("uploadlicence").style.display="none";
+
+}else{
+  $("#liststyle").hide();
+  document.getElementById("uploadlicence").style.display="block";
+}
+if(profilephotoexist!==''){
+  document.getElementById("profilephoto").style.display="none";
+ 
+}else{
+  
+  $("#liststyle1").hide();
+  document.getElementById("profilephoto").style.display="block";
+}
+     
+
+      $.validator.addMethod("minDate", function (value, element) {
+        var curDate = new Date();
+        var inputDate = new Date(value);
+        if (inputDate > curDate) return true;
+        return false;
+      }, "Invalid Date! must be future date.");
+      $("#frm").validate({
+        rules: {
+          first_name: {
+            required: true,
+            minlength: 3,
+          },
+          last_name: {
+            required: true,
+            minlength: 0,
+          },
+          phone_number: {
+            required: true,
+            digits: true
+          }
+        },
+
+      });
+      $(".js-example-basic-multiple").select2({ placeholder: "Select an option" });
+    });
+  </script>
+
+  <%- include('../partials/footer.ejs'); %>

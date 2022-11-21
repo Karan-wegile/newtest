@@ -1,0 +1,126 @@
+<%- include('../partials/head');%>
+
+<body>
+  <div class="wrapper">
+    <!-- Header start -->
+    <%- include('../partials/header.ejs'); %>
+    <!-- Header end -->
+    <!-- Sidebar start -->
+    <%- include('../partials/leftbar');%>
+    <!-- Sidebar end -->
+
+    <div class="content-wrapper">
+      <!-- main content start -->
+      <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+        <div class="row g-0 justify-content-center">
+          <div class="col-xxl-10 col-xl-11">
+            <div class="card border-0 shadow rounded-5">
+              <div class="card-body p-xl-6 p-md-5 p-4">
+                <h1 class="h2 mb-lg-4 mb-3 pb-xl-2">Upload List</h1>
+                <form class="row gx-xxl-5 gx-xl-4">
+                  <div class="col-lg-6">
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="full_name" class="form-label">Full Name*</label>
+                      <input type="text" class="form-control form-control-lg" placeholder="Full Name" required>
+                    </div>
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="phone" class="form-label">Phone Number*</label>
+                      <input id="phone" class="form-control form-control-lg" placeholder="Phone Number" name=”phone” type=”tel”>
+                    </div>
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="email" class="form-label">Email*</label>
+                      <input type="email" class="form-control form-control-lg" required placeholder="Email">
+                    </div>
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="branch_manager" class="form-label">Who is the branch manager</label>
+                      <input type="text" class="form-control form-control-lg" placeholder="Who is the branch manager">
+                    </div>
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <h5 class="mb-3 pt-1 mb-xl-4 pt-xl-2">What Type of list is this?*</h5>
+                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                        <input class="form-check-input" type="checkbox" id="cb1">
+                        <label class="form-check-label ms-1" for="cb1">
+                          Past Clients
+                        </label>
+                      </div>
+                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                        <input class="form-check-input" type="checkbox" id="cb2">
+                        <label class="form-check-label ms-1" for="cb2">
+                          Refinance Leads
+                        </label>
+                      </div>
+                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                        <input class="form-check-input" type="checkbox" id="cb3">
+                        <label class="form-check-label ms-1" for="cb3">
+                          Past Clients
+                        </label>
+                      </div>
+                      <div class="form-check form-check-lg mb-2 mb-xl-3">
+                        <input class="form-check-input" type="checkbox" id="cb4">
+                        <label class="form-check-label ms-1" for="cb4">
+                          Refinance Leads
+                        </label>
+                      </div>
+                      </div>
+                    <div class="mb-3 mb-xl-4 pb-md-2">
+                      <label for="notes" class="form-label">Notes</label>
+                      <textarea class="form-control form-control-lg" placeholder="Enter here" rows="6"></textarea>
+                    </div>
+                    <p class="text-primary ff-primary fw-medium">Be Sure To Double Check that Your Lists Have
+                      Phone Numbers Before Submitting!</p>
+                  </div>
+                  <div class="col-lg-6">
+                    <h5 class="mb-3">File Upload*</h5>
+                    <div class="bg-light bg-opacity-50 border-2 border border-dotted py-5 py-xl-6 px-2 position-relative text-center rounded-3">
+                      <input type="file" class="position-absolute cursor-pe end-0 start-0 top-0 bottom-0 h-100 w-100 opacity-0 z-index-1">
+                      <i class="fa-solid fa-cloud-arrow-up fa-3x text-opacity-25 text-dark"></i>
+                      <h6 class="text-opacity-50 text-dark fw-bold my-2">DRAG &amp; DROP</h6>
+                      <label class="mb-0 form-label fw-normal text-opacity-50 text-dark">your files to assets, or <span class="fw-medium text-primary">browse</span></label>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 text-sm-end">
+                    <ul class="list-inline mb-0 mt-lg-4 mt-3 pt-xl-2">
+                      <li class="list-inline-item me-xl-3">
+                        <button type="button" class="btn btn-lg btn-outline-primary btn-small" data-bs-dismiss="modal"
+                          aria-label="Close">Cancel</button>
+                      </li>
+                      <li class="list-inline-item">
+                        <button type="button" class="btn btn-lg btn-primary btn-small">Add</button>
+                      </li>
+                    </ul>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- main content end -->
+    </div>
+  </div>
+  <%- include('../partials/footer.ejs'); %>
+ <script>
+    var input = $("#phone");
+    geoIpLookup = function (callback) {
+      $.get('https://ipinfo.io', function () {
+      }, "jsonp").always(function (resp) {
+        var countryCode = (resp && resp.country) ? resp.country : "";
+        callback(countryCode);
+      });
+    },
+      geoIpLookup((countryCode) => {
+        input.intlTelInput({ initialCountry: countryCode.toLowerCase(), separateDialCode: true });
+      })
+    input.on("countrychange", function () {
+      // console.log('dialCode ', input.intlTelInput("getSelectedCountryData").dialCode)
+      // console.log('countryCode ', input.intlTelInput("getSelectedCountryData").iso2)
+      // console.log('phoneNumber ', input.val())
+    });
+    const phoneNo = () => {
+      input.intlTelInput("setCountry", "gb");
+      input.intlTelInput("setNumber", "+447986129475");
+    }
+  </script>
+</body>
+
+</html>

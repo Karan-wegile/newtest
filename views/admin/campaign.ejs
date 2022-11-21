@@ -1,0 +1,183 @@
+<%- include('../partials/head');%>
+
+  <body>
+    <div class="wrapper">
+      <!-- Header start -->
+      <%- include('../partials/header.ejs'); %>
+        <!-- Header end -->
+        <!-- Sidebar start -->
+        <%- include('../partials/leftbar');%>
+          <!-- Sidebar end -->
+          <div class="content-wrapper">
+            <!-- main content start -->
+            <% if (errors.length> 0) { %>
+              <div class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                <div class="row">
+                  <div class="alert alert-danger">
+                    <%= errors %>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+                <% if (success.length> 0) { %>
+                  <div class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                    <div class="row">
+                      <div class="alert alert-success">
+                        <%= success %>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+
+                    <!-- main content start -->
+                    <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+                      <h5 class="text-dark mb-3">Campaign</h5>
+                      <div class="px-3 rounded-5 border-0 bg-light-secondary shadow py-4 mb-3 mb-lg-4">
+                        <div class="row gx-2">
+                          <div class="col-md-7">
+                            <ul class="nav nav-pills nav-pills-head align-items-center mb-1 mb-md-0" id="pills-tab"
+                              role="tablist">
+                              <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                                <button class="nav-link btn-xs active" id="pills-active-tab" data-bs-toggle="pill"
+                                  data-bs-target="#pills-active" type="button" role="tab" aria-controls="pills-active"
+                                  aria-selected="true">
+                                  Active
+                                </button>
+                              </li>
+                              <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                                <button class="nav-link btn-xs" id="pills-inactive-tab" data-bs-toggle="pill"
+                                  data-bs-target="#pills-inactive" type="button" role="tab"
+                                  aria-controls="pills-inactive" aria-selected="false">
+                                  Inactive
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="col-md-5 text-md-end">
+                            <a role="button" href="edit-campaign" class="btn btn-primary btn-small">Add New</a>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-active" role="tabpanel"
+                          aria-labelledby="pills-active-tab" tabindex="0">
+                          <div class="dataTable--custom">
+                            <table id="activeTable" class="table w-100">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Campaign Name</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-inactive" role="tabpanel"
+                          aria-labelledby="pills-inactive-tab" tabindex="0">
+                          <div class="dataTable--custom">
+                            <table id="activeTable1" class="table w-100">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Campaign Name</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </main>
+                    <!-- main content end -->
+
+                    <div class="modal fade" id="assignedModalAlert" tabindex="-1" aria-labelledby="assignedModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content rounded-5 shadow p-lg-4 p-md-3">
+                          <div class="modal-body">
+                            <div class="d-flex align-items-center justify-content-between mb-lg-4 mb-3">
+                              <h1 class="modal-title fs-5" id="assignedModalLabel">Confirm Your Action</h1>
+                              <button type="button" class="btn-close removeAllDeleteData" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="my-md-4 my-3 py-lg-2 d-flex align-items-center">
+                              <span class="text-blue ms-2">Are you sure want to delete <span id="confirmCampaignDelete"
+                                  style="color: red;"></span></span>
+                            </div>
+                            <div class="text-md-end text-center mt-lg-4 mt-3 pt-xl-2">
+                              <a type="button" class="btn btn-small btn-outline-danger me-1 me-md-2 removeAllDeleteData"
+                                data-bs-dismiss="modal">Cancel</a>
+                              <a href="" class="btn btn-small btn-primary topButtonIcon topButtonIconConfirm"
+                                data-id="">Yes</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+          </div>
+    </div>
+
+    <%- include('../partials/footer.ejs'); %>
+      <script>
+        $(document).ready(function () {
+          $("#activeTable").dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            order: [[0, 'desc']],
+            "initComplete": function (settings, json) {
+              $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            columnDefs: [{ targets: 2, orderable: false, sClass: "a-right" }],
+            ajax: "campaign_ajax?type=active",
+          });
+          $("#activeTable1").dataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            "initComplete": function (settings, json) {
+              $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            order: [[0, 'desc']],
+            columnDefs: [{ targets: 2, orderable: true, sClass: "a-right" }],
+            ajax: "campaign_ajax?type=inactive",
+          });
+        });
+
+        window.onload = function () {
+          setTimeout(() => {
+            if (document.querySelectorAll('.ConfirmDelete').length > 0) {
+              document.querySelectorAll('.ConfirmDelete').forEach(item => {
+                item.addEventListener('click', function () {
+                  var gotId = item.getAttribute('id');
+                  var gotName = item.getAttribute('campname');
+                  var gotHref = item.getAttribute('href');
+
+                  console.log(gotId, gotName, gotHref);
+                  document.querySelector('#assignedModalAlert').querySelector('#confirmCampaignDelete').innerHTML = gotName;
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('data-id', gotId);
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('href', gotHref);
+                })
+              })
+            }
+
+            if (document.querySelectorAll('.removeAllDeleteData').length > 0) {
+              document.querySelectorAll('.removeAllDeleteData').forEach(item => {
+                item.addEventListener('click', function () {
+                  document.querySelector('#assignedModalAlert').querySelector('#confirmCampaignDelete').innerHTML = '';
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('data-id', '');
+                  document.querySelector('#assignedModalAlert').querySelector(".topButtonIcon.topButtonIconConfirm").setAttribute('href', '');
+                })
+              })
+            }
+
+          }, 3000);
+        }
+
+      </script>
+  </body>
+
+  </html>

@@ -1,0 +1,581 @@
+<%- include('../partials/head');%>
+
+  <body>
+    <div class="wrapper">
+      <!-- Header start -->
+      <%- include('../partials/header.ejs'); %>
+      <!-- Header end -->
+      
+      <!-- Sidebar start -->
+      <%- include('../partials/leftbar');%>
+        <!-- Sidebar end -->
+        <div class="content-wrapper">
+            <!-- main content start -->
+            <main class="container-fluid py-3 ps-lg-3 pe-lg-4 px-3">
+              <h5 class="text-dark mb-3">Contacts</h5>
+              <h4 class="SelectFirstAction" style="text-align: center; color: red; display: none;"></h4>
+
+                <div class="px-3 rounded-5 border-0 bg-light-secondary shadow py-4 mb-3 mb-lg-4">
+                  <div class="row gx-2">
+                    <div class="col-xxl-7 col-xl-8">
+                      <ul class="nav nav-pills nav-pills-head align-items-center flex-nowrap scroll-hide overflow-auto mb-1 mb-md-3 mb-xl-0" id="pills-tab" role="tablist">
+                        <li class="nav-item me-2 mb-md-0 mb-1 d-flex align-items-center " role="presentation">
+                          <input class="form-check-input border-blue form-custom-check mt-0 checkUnchecked"
+                            type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                          
+                        </li>
+                        <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1" role="presentation" data-bs-toggle="modal"
+                          data-bs-target="#assignedModal">
+                          <span
+                            class="topButtonIcon assignto d-flex align-items-center justify-content-center sm-wh rounded-circle bg-light-hover cursor-pe"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Assign To"
+                            data-cust="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="17.4" height="17.4" viewBox="0 0 20.4 20.4">
+                              <g id="noun-assign-1738694" transform="translate(0.2 0.2)">
+                                <path id="Combined_Shape" data-name="Combined Shape"
+                                  d="M.851,20A.842.842,0,0,1,0,19.148V.851A.891.891,0,0,1,.851,0h18.3A.842.842,0,0,1,20,.851V19.185a.8.8,0,0,1-.235.565A.86.86,0,0,1,19.15,20Zm.85-1.7H18.3V1.7H1.7Zm3.734-4.407a.852.852,0,0,1,0-1.7h9.131a.838.838,0,0,1,.851.852.808.808,0,0,1-.814.851Zm0-6.074a.852.852,0,0,1,0-1.7h9.131a.838.838,0,0,1,.851.852.829.829,0,0,1-.814.851Z"
+                                  fill="#043072" stroke="#043072" stroke-miterlimit="10" stroke-width="0.4" />
+                              </g>
+                            </svg>
+
+                          </span>
+                        </li>
+                        <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1" role="presentation">
+                          <span
+                            class="topButtonIcon d-flex align-items-center justify-content-center sm-wh rounded-circle bg-light-hover cursor-pe"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="DND" data-cust="">
+                            <svg width="29px" height="18px" viewBox="0 0 26 24" version="1.1"
+                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                              <title>DND</title>
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="DND" fill="#043072">
+                                  <g id="noun-campaign-2981092" transform="translate(1.931020, 1.283800)"
+                                    fill-rule="nonzero" stroke="#043072" stroke-width="0.818181818">
+                                    <path
+                                      d="M0.679664562,5.19618561 L5.54744174,5.19618561 L17.0039545,0.0778632121 C17.450201,-0.155214178 18,0.161673192 18,0.673700483 L18,18.7123957 C17.992839,19.1929311 17.4981991,19.5286852 17.042362,19.3252113 L5.54739703,14.1900436 L5.00857474,14.1900436 L5.00857474,18.1864666 C5.00857474,19.2306558 4.15833453,20 3.12142243,20 C2.11714997,20 1.29226138,19.1825136 1.29226138,18.1864666 L1.29226138,14.1900436 L0.679217444,14.1900436 C0.30423272,14.1900436 0,13.8883924 0,13.5166291 L0,5.86973308 C0,5.49795207 0.304250605,5.1963186 0.679217444,5.1963186 L0.679664562,5.19618561 Z M3.6503187,14.1901322 L2.65109867,14.1901322 L2.65109867,18.1865552 C2.65109867,18.4450868 2.86085976,18.6533927 3.12195897,18.6533927 C3.41328339,18.6533927 3.65045283,18.4935615 3.65045283,18.1865552 L3.65045283,14.1901322 L3.6503187,14.1901322 Z M6.30105967,6.33399941 L6.30105967,13.0521854 L16.6420122,17.6717972 L16.6420122,1.71483092 L6.30105967,6.33399941 Z M4.94275892,6.5430057 L1.35901614,6.5430057 L1.35901614,12.8431614 L4.94275892,12.8431614 L4.94275892,6.5430057 Z"
+                                      id="Shape"></path>
+                                  </g>
+                                  <rect id="Rectangle"
+                                    transform="translate(12.931020, 11.783800) rotate(48.000000) translate(-12.931020, -11.783800) "
+                                    x="11.9310202" y="-4.71620017" width="2" height="33"></rect>
+                                </g>
+                              </g>
+                            </svg>
+
+                        </li>
+                        <li class="nav-item me-1 me-xl-2 mb-md-0 mb-1" role="presentation">
+                          <span
+                            class="topButtonIcon d-flex align-items-center justify-content-center sm-wh rounded-circle bg-light-hover cursor-pe"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="delete" data-cust="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18.999" viewBox="0 0 22 22.999">
+                              <path id="Combined_Shape" data-name="Combined Shape"
+                                d="M16.664,23H5.428a3.117,3.117,0,0,1-2.008-.681A2.865,2.865,0,0,1,2.387,20.1V5.24H1.066a1.049,1.049,0,1,1,0-2.1H1.1c.8-.021,1.614,0,2.417,0h2.71v-.31c0-.163-.005-.33,0-.493A2.39,2.39,0,0,1,6.848.762C7.6-.082,8.675,0,9.692,0h3.036c.256,0,.511-.005.767,0a2.411,2.411,0,0,1,2.2,1.446,3.891,3.891,0,0,1,.186,1.583v.111h5.053A1.077,1.077,0,0,1,22,4.191,1.067,1.067,0,0,1,20.934,5.24H20.9c-.432.011-.866.01-1.3.007V19.566c0,.189.005.382,0,.572A2.925,2.925,0,0,1,16.752,23L16.7,23h-.032ZM5.284,20.919l-.029,0A.084.084,0,0,0,5.284,20.919ZM5.22,20.9H5.3c1.933.031,3.866,0,5.8,0h5.6c.038,0,.072,0,.1,0,.059-.015.118-.032.178-.046l.009,0,.055-.028c.009-.006.066-.037.113-.065l.01-.008c.037-.031.069-.063.1-.094s.044-.047.067-.072c.027-.044.053-.091.056-.1.013-.022.026-.047.039-.072.016-.058.033-.135.042-.174,0-.008,0-.016,0-.026V5.287H4.527c.013,1.443-.015,2.89-.015,4.33V20.143a.386.386,0,0,0,.012.087L4.5,20.165c.012.036.013.087.022.124,0,.009.02.071.036.124l.008.013c.026.047.058.094.085.147l.022.041c.044.045.107.1.15.14l.057.033c.036.023.072.041.1.059a1.4,1.4,0,0,1,.162.046.212.212,0,0,1,.045.008Zm11.956-.157c.025-.016.044-.029.042-.032Zm.1-.085s.023-.024.044-.058C17.305,20.623,17.291,20.642,17.276,20.662ZM4.683,20.634Zm-.059-.083c0,.006.017.031.047.061L4.662,20.6c-.015-.024-.032-.049-.037-.049ZM17.4,20.489c.005,0,.014-.022.024-.056C17.414,20.451,17.406,20.47,17.4,20.489Zm-12.813,0c.006,0-.01-.036-.026-.068A.236.236,0,0,0,4.586,20.489Zm-.052-.118-.006-.011Zm14-15.083ZM8.468,3.143H13.75v-.8c0-.01,0-.018,0-.025l0-.009,0,0a.187.187,0,0,1,0-.024.168.168,0,0,0-.012-.022.093.093,0,0,0,0,.011l0-.012,0-.013c-.007-.011-.016-.03-.025-.048L13.7,2.2c-.018-.016-.063-.044-.087-.061l-.024-.012-.024-.006.008,0-.007,0h-.031L13.516,2.1c-.073-.021-.07-.008-.041,0l.008,0c-.052,0-.108,0-.164,0H8.583l-.015,0-.054.015.018-.008.012-.007h0c-.027,0-.04.008.007,0,.029-.017.029-.026-.068.026h0l-.013,0,0,0h0l0,0a.6.6,0,0,1-.074.071l-.026.044,0,.008,0,.013a.456.456,0,0,0-.007.061v.8Zm5.264-.9-.008-.023-.013-.016A.384.384,0,0,0,13.733,2.247ZM8.4,2.2l.024-.025.016-.015-.008,0c.006-.008.008-.013,0-.015s-.01.009-.02.025a.086.086,0,0,0-.023.017s.007,0,.014,0Zm.055-.055h0ZM4.524,20.23a.323.323,0,0,1,.017.053A.272.272,0,0,1,4.524,20.23Zm7.763-3.121V9.077a1.065,1.065,0,0,1,2.129,0v8.031a1.077,1.077,0,0,1-1.065,1.049H13.31A1.07,1.07,0,0,1,12.287,17.108Zm-4.708,0V9.077a1.065,1.065,0,0,1,2.129,0v8.031a1.077,1.077,0,0,1-1.065,1.049H8.6A1.07,1.07,0,0,1,7.579,17.108ZM13.742,2.279l.007.032A.052.052,0,0,1,13.742,2.279ZM8.416,2.172l.016-.01-.008.01-.016.013Zm.065-.035h0l.031-.008a.181.181,0,0,1-.047.014Zm5-.025h.022l.033,0,.03.009a.081.081,0,0,1-.024,0A.187.187,0,0,1,13.483,2.111Z"
+                                transform="translate(0 0)" fill="#043072" />
+                            </svg>
+                          </span>
+
+                        </li>
+                        <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                          <button class="nav-link btn-xs tab-btnContact" type="button"
+                            data-tab="unassigned">Unassigned</button>
+                        </li>
+                        <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                          <button class="nav-link btn-xs tab-btnContact" type="button"
+                            data-tab="assigned">Assigned</button>
+                        </li>
+                        <li class="nav-item me-2 mb-md-0 mb-1" role="presentation">
+                          <button class="nav-link btn-xs tab-btnContact" type="button"
+                            data-tab="DND">DND</button>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-xxl-5 col-xl-4 text-xl-end">
+                      <ul class="mb-0 list-inline">
+                        <li class="list-inline-item">
+                          <a role="button" href="contacts/uploadcsv/" class="btn btn-outline-primary px-2 btn-small">Import
+                            Contact</a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a role="button" href="contacts/edit-contact" class="btn btn-primary btn-small">Add Contact</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="tableContentTab overflow-hidden active" id="unassigned" >
+                  <div class="tab-pane fade show active" id="pills-unassigned" role="tabpanel"
+                    aria-labelledby="pills-unassigned-tab" tabindex="0">
+                    <div class="dataTable--custom">
+                      <table id="editable" class="table w-100 ">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>State</th>
+                            <th>Campaign Name</th>
+                            <th>Stage</th>
+                            <th>Is Contacted</th>
+                            <th>Listing Price</th>
+                            <th>City</th>
+                            <th>Post code</th>
+                            <th>Date of import</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tableContentTab overflow-hidden" id="assigned" >
+                  <div class="tab-pane fade show active" id="pills-unassigned" role="tabpanel"
+                    aria-labelledby="pills-unassigned-tab" tabindex="0">
+                    <div class="dataTable--custom">
+                      <table id="editable1" class="table w-100 ">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>State</th>
+                            <th>Assigned</th>
+                            <th>Campaign Name</th>
+                            <th>Stage</th>
+                            <th>Is Contacted</th>
+                            <th>Listing Price</th>
+                            <th>City</th>
+                            <th>Post code</th>
+                            <th>Date of import</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="tableContentTab overflow-hidden" id="DND" >
+                  <div class="tab-pane fade show active" id="pills-unassigned" role="tabpanel"
+                    aria-labelledby="pills-unassigned-tab" tabindex="0">
+                    <div class="dataTable--custom">
+                      <table id="editable2" class="table w-100 ">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>State</th>
+                            <th>Campaign Name</th>
+                            <th>Stage</th>
+                            <th>Is Contacted</th>
+                            <th>Listing Price</th>
+                            <th>City</th>
+                            <th>Post code</th>
+                            <th>Date of import</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+            </main>
+            <!-- main content end -->
+
+            <div class="modal fade" id="assignedModalAlert" tabindex="-1" aria-labelledby="assignedModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded-5 shadow p-lg-4 p-md-3">
+                  <div class="modal-body">
+                    <div class="d-flex align-items-center justify-content-between mb-lg-4 mb-3">
+                      <h1 class="modal-title fs-5" id="assignedModalLabel">Confirm Your Action</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="my-md-4 my-3 py-lg-2 d-flex align-items-center">
+                      <span class="text-blue ms-2">Are you sure want to do changes</span>
+                    </div>
+                    <div class="text-md-end text-center mt-lg-4 mt-3 pt-xl-2">
+                      <a type="button" href="admin/contact" class="btn btn-small btn-outline-danger me-1 me-md-2"
+                        data-bs-dismiss="modal">Cancel</a>
+                      <button type="submit" class="btn btn-small btn-primary topButtonIcon topButtonIconConfirm"
+                        data-cust="">Yes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Assigned Modal -->
+            <div class="modal fade" id="assignedModal" tabindex="-1" aria-labelledby="assignedModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded-5 shadow p-lg-4 p-md-3">
+
+                  <div class="modal-body">
+                    <div class="d-flex align-items-center justify-content-between mb-lg-4 mb-3">
+                      <h1 class="modal-title fs-5" id="assignedModalLabel">Assigned To</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <h4 class="SelectFirstAssign" style="text-align: center; color: red; display: none;"></h4>
+
+                    <!-- <ul class="list-unstyled overflow-auto h-300">
+                      <% for(var i=0; i < result.length; i++){ %>
+                        <li class="d-flex align-items-center justify-content-start mb-lg-4 mb-3">
+                          <input class="form-check-input assign_checked border-blue form-custom-check mt-0"
+                            name="select_assigned" type="checkbox" id="<%= result[i]['id']%>"
+                            value="<%= result[i]['id']%>" aria-label="...">
+                          <span style="background-color: #40A36A;"
+                            class="d-flex align-items-center justify-content-center rounded-circle sm-wh flex-shrink-0 text-white text-uppercase mx-2 mx-xl-3 fs-14">
+                            <%= result[i]['first_name'][0]%>
+                              <%= result[i]['last_name'][0] %>
+                          </span>
+                          <span class="ff-primary fs-medium fs-15">
+                            <%= result[i]['first_name']%>
+                              <%= result[i]['last_name'] %>
+                          </span>
+                        </li>
+                        <% } %>
+                    </ul> -->
+
+                    <div class="dataTable--custom">
+                      <table id="agentAssign" class="table w-100 ">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Agent Name</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+
+                    <div class="text-md-end text-center mt-lg-4 mt-3 pt-xl-2">
+                      <a type="button" href="admin/contact" class="btn btn-small btn-outline-danger me-1 me-md-2"
+                        data-bs-dismiss="modal">Cancel</a>
+                      <button type="submit" class="btn btn-small btn-primary topButtonIconAssign"
+                        data-cust="assigned">Assigned</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Assigned Modal -->
+
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs'); %>
+
+      <script type="text/javascript">
+
+        function Myfunction(buttonName) {
+          if (buttonName == "DND") {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "Want to transfer selected contacts into Do Not Disturb list!",
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, DND it!'
+            })
+          } else if (buttonName == "delete") {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'error',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, Delete it!'
+            })
+          }
+        }
+
+        function confirmDelete() {
+          if (!confirm("Are you sure you want to delete this contact")) {
+            return false;
+          }
+          else {
+            return true;
+          }
+        }
+
+        if (document.querySelectorAll('.tab-btnContact').length > 0) {
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            item.addEventListener('click', function () {
+              document.querySelectorAll('.tab-btnContact').forEach(item => {
+                item.classList.remove('active');
+              })
+              var currDiv = item.getAttribute('data-tab');
+              item.classList.add('active');
+
+              document.querySelectorAll('.tableContentTab').forEach(item => {
+                item.classList.remove('active');
+                if (currDiv == item.getAttribute('id')) {
+                  item.classList.add('active');
+                };
+              })
+
+            })
+          })
+        }
+
+        if (document.querySelectorAll('.checkUnchecked').length > 0) {
+          document.querySelector('.checkUnchecked').addEventListener('click', function () {
+            if (this.checked) {
+              document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+                item.checked = true;
+              })
+            } else {
+              document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+                item.checked = false;
+              })
+            }
+          })
+        }
+
+        document.querySelector('.topButtonIcon.assignto').addEventListener('click', function () {
+          if (document.querySelectorAll('.assign_checked').length > 0) {
+            document.querySelectorAll('.assign_checked').forEach(item => {
+              item.addEventListener('click', function () {
+                document.querySelectorAll('.assign_checked').forEach(item => {
+                  item.checked = false;
+                })
+                item.checked = true;
+              });
+            })
+          }
+        })
+
+
+        if (document.querySelectorAll('.tab-btnContact').length > 0) {
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            item.addEventListener('click', function () {
+              var activTab = item.getAttribute('data-tab');
+              localStorage.setItem("contactTab", activTab);
+              document.querySelectorAll('.tableContentTab .allCheck').forEach(item => {
+                item.checked = false;
+              })
+              if (document.querySelector('.checkUnchecked').checked) {
+                document.querySelector('.checkUnchecked').click();
+                document.querySelectorAll('.tableContentTab .allCheck').forEach(item => {
+                  item.checked = false;
+                })
+              }
+            })
+          })
+        }
+
+        var activeTabData = localStorage.getItem("contactTab")
+        if (activeTabData != null) {
+          // console.log(activeTabData)
+          document.querySelectorAll('.tab-btnContact').forEach(item => {
+            if (item.getAttribute('data-tab') == activeTabData) {
+              item.click();
+            }
+          })
+        } else {
+          document.querySelector('.tab-btnContact[data-tab="unassigned"]').click();
+        };
+
+        if (document.querySelectorAll('.topButtonIcon').length > 0) {
+          document.querySelectorAll('.topButtonIcon').forEach(item => {
+            item.addEventListener('click', function () {
+              var currSelectOption = item.getAttribute('data-bs-title');
+              if (localStorage.getItem("contactTab") == 'assigned') {
+                document.querySelector('.topButtonIconAssign').innerHTML = 'Re-Assign'
+              } else {
+                document.querySelector('.topButtonIconAssign').innerHTML = 'Assign'
+              };
+
+              var countCheckActiveContact = 0;
+              document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+                if (item.checked) {
+                  countCheckActiveContact = 1;
+                }
+              })
+
+              if (countCheckActiveContact > 0) {
+                Myfunction(currSelectOption);
+                if (item.getAttribute('data-bs-title') != 'Assign To') {
+                  // adding class and attribut on yes buttom of popup
+                  if (!item.classList.contains('topButtonIconConfirm')) {
+                    var currAction = item.getAttribute('data-bs-title');
+                    document.querySelector('.swal2-confirm').setAttribute('data-cust', currAction);
+                  }
+                }
+
+                if (document.querySelectorAll('.swal2-confirm').length > 0) {
+                  document.querySelectorAll('.swal2-confirm').forEach(item => {
+                    item.addEventListener('click', function () {
+
+                      if (!item.classList.contains('topButtonIconConfirm')) {
+                        var currAction = item.getAttribute('data-bs-title');
+                        document.querySelector('.topButtonIcon.topButtonIconConfirm').setAttribute('data-cust', currAction);
+                      }
+                      var idArr = []
+                      var getAtt = item.getAttribute('data-cust');
+                      document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+                        if (item.checked) {
+                          var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+                          idArr.push(idData);
+                        }
+                      })
+                      if (getAtt != '') {
+                        contentAction(getAtt, idArr);
+                      }
+                    })
+                  })
+                }
+              } else {
+                if (currSelectOption != "Assign To") {
+                  document.querySelector('.SelectFirstAction').innerHTML = "Please Select Contacts";
+                  document.querySelector('.SelectFirstAction').style.display = 'block';
+                  setTimeout(() => {
+                    document.querySelector('.SelectFirstAction').innerHTML = "";
+                    document.querySelector('.SelectFirstAction').style.display = 'none';
+                  }, 2000)
+                }
+              }
+            });
+          })
+        }
+
+        if (document.querySelectorAll('.topButtonIconAssign').length > 0) {
+          document.querySelectorAll('.topButtonIconAssign').forEach(item => {
+            item.addEventListener('click', function () {
+              let countCheckActiveAgent = 0;
+              let countCheckActiveContact = 0
+              document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+                if (item.checked) {
+                  countCheckActiveContact = 1;
+                }
+              })
+              document.querySelectorAll('#assignedModal.show .assign_checked').forEach(item => {
+                if (item.checked) {
+                  countCheckActiveAgent = 1;
+                }
+              })
+              if (countCheckActiveContact > 0) {
+                if (countCheckActiveAgent > 0) {
+                  var idArr = [];
+                  var agentArr = [];
+                  var getAtt = item.getAttribute('data-cust');
+                  document.querySelectorAll('.tableContentTab.active .allCheck').forEach(item => {
+                    if (item.checked) {
+                      var idData = item.parentElement.parentElement.querySelector("td span[data-id]").getAttribute("data-id");
+                      idArr.push(idData);
+                    }
+                  })
+                  document.querySelectorAll('#assignedModal.show .assign_checked').forEach(item => {
+                    if (item.checked) {
+                      var idData = item.getAttribute("id");
+                      agentArr.push(idData);
+                    }
+                  })
+                  var alldata = { idArr, agentArr }
+                  contentAction(getAtt, alldata);
+                } else {
+
+                  document.querySelector('.SelectFirstAssign').innerHTML = "Please Select Agent To Assigned";
+                  document.querySelector('.SelectFirstAssign').style.display = 'block';
+                  setTimeout(() => {
+                    document.querySelector('.SelectFirstAssign').innerHTML = "";
+                    document.querySelector('.SelectFirstAssign').style.display = 'none';
+                  }, 2000)
+                }
+              } else {
+                document.querySelector('.SelectFirstAssign').innerHTML = "Please Select Contacts";
+                document.querySelector('.SelectFirstAssign').style.display = 'block';
+                setTimeout(() => {
+                  document.querySelector('.SelectFirstAssign').innerHTML = "";
+                  document.querySelector('.SelectFirstAssign').style.display = 'none';
+                }, 2000)
+              }
+            });
+          })
+        }
+
+        function contentAction(getAtt, idArr) {
+
+          var data = JSON.stringify({
+            "type": getAtt,
+            "data": idArr
+          });
+
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+          xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+
+              window.location.href = "/admin/contacts"
+            }
+          });
+          xhr.open("POST", "/admin/contact/contact-action");
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send(data);
+        }
+
+
+
+      </script>
+
+      <script>
+        $(document).ready(function () {
+          $('#editable').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[0, 'desc']],
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            "columnDefs": [{ "targets": 14, "orderable": false, "sClass": "a-right" }],
+            "ajax": "contact_ajax?type=unassigned"
+          });
+          $('#editable1').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[0, 'desc']],
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            "columnDefs": [{ "targets": 15, "orderable": false, "sClass": "a-right" }],
+            "ajax": "contact_ajax?type=assigned"
+          });
+          $('#editable2').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "order": [[0, 'desc']],
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            "columnDefs": [{ "targets": 14, "orderable": false, "sClass": "a-right" }],
+            "ajax": "contact_ajax?type=DND"
+          });
+          $('#agentAssign').dataTable({
+            "processing": true,
+            "serverSide": true,
+            "initComplete": function (settings, json) {
+            $(".dataTables_wrapper .row").addClass("table-wrapup gx-0 mb-2 mb-lg-3");
+            },
+            "columnDefs": [{ "targets": 1, "orderable": false, "sClass": "a-right" }],
+            "ajax": "contactAgent_ajax"
+          });
+        });
+      </script>
+      </body>
+      </html>

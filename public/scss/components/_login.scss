@@ -1,0 +1,13 @@
+.Login{
+    @include media-breakpoint-up(lg) { 
+        height: 100%;
+        .banner-img{
+            border-top-right-radius: $border-radius-2xl;
+            border-bottom-right-radius: $border-radius-2xl;
+        }
+        .login-form{
+            max-width: 36rem;
+        }
+     }
+
+}
